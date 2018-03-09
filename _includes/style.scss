@@ -1,0 +1,30 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Open Sans', sans-serif;
+  color: #313e48;
+  background: #fff;
+  padding: 0;
+}
+
+img{
+  max-width: 100%;
+}
+
+.uppercase { 
+  text-transform: uppercase;
+}
+
+.occurrenceSelector {
+  cursor: pointer;
+}
+
+.occurrencesTable {
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+}

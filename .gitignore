@@ -1,0 +1,8 @@
+_site
+.sass-cache
+.jekyll-metadata
+.idea
+_data/blueprints/*
+!_data/blueprints/README.md
+blueprints/*
+blueprint_nav.json

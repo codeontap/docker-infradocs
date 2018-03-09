@@ -1,0 +1,10 @@
+<ul class="sidebar-menu">
+    {%- assign current = page.url | downcase | split: '/' -%}
+    <li class="menu-title"><a href="{{site.url}}">Home</a></li>
+    {%- assign model = site.blueprints.location -%}
+    <li class="menu-title">Deployments</li>
+    <ul>
+    {%- for location in model %}
+        {% assign path = location | split '.' %}
+    {%- endfor %}
+</ul>

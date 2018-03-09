@@ -1,0 +1,276 @@
+{%- if include.model -%}
+{%- for tenant in include.model.Tenants %}
+<div class="w3-container ">
+    <h3></h3>
+    <div class="w3-row w3-container w3-padding">
+        <div class="w3-col w3-quarter" >
+            <span class="w3-medium">Tenant: </span><span class="w3-tag w3-round-large">{{ tenant.Configuration.Name }}</span>
+        </div>
+        {%- for product in tenant.Products %}
+        <div class="w3-col w3-quarter" >
+            <span class="w3-medium">Product: </span><span class="w3-tag w3-round-large">{{ product.Configuration.Name }}</span>
+        </div>
+        {%- for environment in product.Environments %}
+        <div class="w3-col w3-quarter">
+            <span class="w3-medium">Environment: </span><span class="w3-tag w3-round-large">{{ environment.Configuration.Name }}</span>
+        </div>
+        {% for solution in environment.Solutions %}
+        <div class="w3-col w3-quarter">
+            <span class="w3-medium">Solution: </span><span class="w3-tag w3-round-large"> {{ solution.Configuration.Name }}</span>
+        </div>
+        {%- for segment in solution.Segments %}
+        <div class="w3-col w3-quarter">
+            <span class="w3-medium">Segment: </span><span class="w3-tag w3-round-large">{{ segment.Configuration.Name }}</span>
+        </div>
+    </div>
+
+    {%- for tier in segment.Tiers %}
+    <div class="w3-border w3-margin">
+        <header class="w3-container w3-green w3-large">Tier: {{ tier.Configuration.Name }}</header>
+        <div class="w3-container">
+            {%- for component in tier.Components %}
+            {% capture componentId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}{% endcapture %}
+            <div>
+                <div class="w3-card w3-padding w3-margin w3-border" >
+                    <div class="w3-row">
+                        <div class="w3-container w3-col m1 w3-center">
+                            <img src="http://via.placeholder.com/250x250">
+                        </div>
+                        <div class="w3-container w3-center w3-col m3">
+                                <h2>{{component.Id}}</h2>
+                                <div class="w3-small">{{component.Occurrences[0].Core.Type}}</div>
+                        </div>
+                        <div class="w3-container w3-col m8 w3-center">
+                            <table class="w3-table w3-hoverable">
+                                <thead>
+                                    <tr class="w3-light-grey">
+                                        <th>Occurrence</th>
+                                        <th>Sub Occurrence</th>
+                                        <th>Type</th>
+                                    </tr>
+                                </thead>
+                                {%- for occurrence in component.Occurrences  %}
+                                    {%- capture occurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}{%- endcapture %}
+                                    <tr class="occurrenceSelector" onclick="event.stopPropagation(); openItemPropertyTab(event, '{{occurrenceId}}');">
+                                        <td colspan="2" ><span class="w3-small">{{occurrence.Core.Name}}</span></td>
+                                        <td><span class="w3-small">{{occurrence.Core.Type}}</span></td>
+                                    </tr>
+                                    
+                                    {%- for sub-occurrence in occurrence.Occurrences %}
+                                        {%- capture subOccurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}-{{sub-occurrence.Core.Id}}{%- endcapture %}
+                                        <tr class="occurrenceSelector" onclick="event.stopPropagation(); openItemPropertyTab(event, '{{subOccurrenceId}}');">
+                                            <td></td>
+                                            <td> 
+                                                    <span class="w3-small"> 
+                                                    {%- if sub-occurrence.Configuration.Containers != nill %} 
+                                                        {%- for container in sub-occurrence.Configuration.Containers %}
+                                                            {{container[1].Name}} 
+                                                        {%- endfor %}
+                                                    {%- else %} 
+                                                        {{sub-occurrence.Core.Name}} 
+                                                    {%- endif %} 
+                                                    </span>
+                                            </td>
+                                            <td>
+                                                <span class="w3-small w3-padding">{{sub-occurrence.Core.Type}}</span>
+                                            </td>
+                                        </tr>
+                                    {%- endfor %}                                                                        
+                                {%- endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        {%- for occurrence in component.Occurrences %}
+                            {%- capture occurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}{%- endcapture %}
+                            <div class="diagram-properties w3-container w3-border w3-hide w3-margin" id="prop-{{occurrenceId}}">
+                            <div class="w3-panel">
+                                <span class="w3-large w3-margin">Properties </span><span clas="w3-small"  >{{occurrence.Core.Name}}</span>
+                            </div>
+                            <div class="w3-bar w3-light-grey">
+                                <button class="properties-set-button w3-bar-item w3-button " onclick="openPropertyTab(event, '{{ occurrenceId }}', 'core' ); " id="prop-but-core-{{ occurrenceId }}">Core</button>
+                                <button class="properties-set-button w3-bar-item w3-button " onclick="openPropertyTab(event, '{{ occurrenceId }}', 'config' ); " id="prop-but-config-{{ occurrenceId }}">Configuration</button>
+                                <button class="properties-set-button w3-bar-item w3-button " onclick="openPropertyTab(event, '{{ occurrenceId }}', 'resource' ); "  id="prop-but-resource-{{ occurrenceId }}">Resources</button>
+                                <button class="properties-set-button w3-bar-item w3-button " onclick="openPropertyTab(event, '{{ occurrenceId }}', 'attribute' ); " id="prop-but-attribute-{{ occurrenceId }}">Attributes</button>
+                            </div>
+                            <div class="properties-set w3-container" id="prop-core-{{ occurrenceId }}" >
+                                <ul class="w3-ul w3-small w3-show">
+                                    <li><div class="w3-medium uppercase">Name</div> {{occurrence.Core.Name}}</li>
+                                    <li><div class="w3-medium uppercase">Id</div> {{occurrence.Core.Id}}</li>
+                                    <li><div class="w3-medium uppercase">Type</div> {{occurrence.Core.Type}}</li>
+                                </ul> 
+                            </div>
+                                <div class="properties-set w3-container" id="prop-config-{{ occurrenceId }}" style="display:none">
+                                    <ul class="w3-ul w3-small">
+                                        {%- for property in occurrence.Configuration  %}
+                                            <li><div class="w3-medium uppercase">{{property[0]}}</div> 
+                                            {%- if property[1].first %}
+                                                {%- if property[1].first.[1] != nill %}
+                                                    <ul class="w3-ul w3-small"> 
+                                                        {%- for sub-property in property[1] %}
+                                                            <li><div class="w3-medium uppercase">{{sub-property[0]}}</div>
+                                                            {%- if sub-property[1].first %}
+                                                                <ul class="w3-ul w3-small">    
+                                                                {%- if sub-property[1].first.[1] != nill %}
+                                                                    {%- for sub-sub-property in sub-property[1] %}
+                                                                        <li><div class="w3-medium uppercase">{{sub-sub-property[0]}}</div>{{sub-sub-property[1]}}</li>
+                                                                    {%- endfor %}
+                                                                {%- else %}
+                                                                    {%- for value in sub-property[1] %}
+                                                                        {%- if value[1] != nill %}
+                                                                            <li><div class="w3-medium uppercase">{{value[0]}}</div>{{value[1]}}^</li>
+                                                                        {%- else %}
+                                                                            <li>{{value}}</li>
+                                                                        {%- endif %}
+                                                                    {%- endfor %}
+                                                                {%- endif %}
+                                                                </ul>
+                                                            {%- else %}
+                                                                {{sub-property[1]}}
+                                                            {%- endif %}
+                                                            </li>
+                                                        {%- endfor %}
+                                                    </ul>
+                                                {%- else %}
+                                                    <ul class="w3-ul w3-class">
+                                                    {%- for value in property[1] %}
+                                                        <li>{{value}}</li>
+                                                    {%- endfor %}
+                                                    </ul>
+                                                {%- endif %}
+                                            {%- else %}
+                                                {{property[1]}}
+                                            {%- endif %}
+                                        </li>
+                                        {%- endfor %}
+                                    </ul>
+                                </div>
+                                <div class="properties-set w3-container" id="prop-resource-{{ occurrenceId }}" style="display:none">
+                                    {%- for resource in occurrence.State.Resources %}
+                                    <ul class="w3-ul w3-small">
+                                        <li><div class="w3-medium uppercase">Type</div> {{resource[0]}}</li>
+                                        <li><div class="w3-medium uppercase">Id</div> {{resource[1].Id}}</li>
+                                        <li><div class="w3-medium uppercase">Deployed</div> 
+                                            {%- if resource[1].Deployed %} 
+                                                <span class="w3-text-green">Yes</span>
+                                            {%- else %}
+                                                <span class="w3-text-red">No</span>
+                                            {%- endif %}   
+                                            </li>
+                                    </ul>
+                                    {%- endfor %}
+                                </div>
+                                <div class="properties-set w3-container" id="prop-attribute-{{ occurrenceId }}" style="display:none">
+                                    <ul class="w3-ul w3-small">
+                                        {%- for property in occurrence.State.Attributes %}
+                                        <li><div class="w3-medium uppercase">{{property[0]}}</div> {{property[1]}}</li>
+                                        {%- endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            {%- for sub-occurrence in occurrence.Occurrences %}
+                            {%- capture subOccurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}-{{sub-occurrence.Core.Id}}{%- endcapture %}
+                            <div class="diagram-properties w3-container w3-border w3-hide w3-margin" id="prop-{{subOccurrenceId}}">
+                            <div class="w3-panel">
+                                <span class="w3-large w3-margin">Properties </span><span clas="w3-small"  >{{sub-occurrence.Core.Name}}</span>
+                            </div>
+                            <div class="w3-bar w3-light-grey">
+                                <button class="properties-set-button w3-bar-item w3-button w3-blue" onclick="openPropertyTab(event, '{{ subOccurrenceId }}', 'core' ); " id="prop-but-core-{{ subOccurrenceId }}">Core</button>
+                                <button class="properties-set-button w3-bar-item w3-button " onclick="openPropertyTab(event, '{{ subOccurrenceId }}', 'config' ); " id="prop-but-config-{{ subOccurrenceId }}">Configuration</button>
+                                <button class="properties-set-button w3-bar-item w3-button " onclick="openPropertyTab(event, '{{ subOccurrenceId }}', 'resource' ); " id="prop-but-resource-{{ subOccurrenceId }}">Resources</button>
+                                <button class="properties-set-button w3-bar-item w3-button " onclick="openPropertyTab(event, '{{ subOccurrenceId }}', 'attribute' ); " id="prop-but-attribute-{{ subOccurrenceId }}">Attributes</button>
+                            </div>
+                            <div class="properties-set w3-container" id="prop-core-{{ subOccurrenceId }}" >
+                                <ul class="w3-ul w3-small w3-show">
+                                    <li><div class="w3-medium uppercase">Name</div> {{sub-occurrence.Core.Name}}</li>
+                                    <li><div class="w3-medium uppercase">Id</div> {{sub-occurrence.Core.Id}}</li>
+                                    <li><div class="w3-medium uppercase">Type</div> {{sub-occurrence.Core.Type}}</li>
+                                </ul> 
+                            </div>
+                                <div class="properties-set w3-container" id="prop-config-{{ subOccurrenceId }}" style="display:none">
+                                    <ul class="w3-ul w3-small">
+                                        {%- for property in sub-occurrence.Configuration  %}
+                                            <li><div class="w3-medium uppercase">{{property[0]}}</div> 
+                                            {%- if property[1].first %}
+                                                {%- if property[1].first.[1] != nill %}
+                                                    <ul class="w3-ul w3-small"> 
+                                                        {%- for sub-property in property[1] %}
+                                                            <li><div class="w3-medium uppercase">{{sub-property[0]}}</div>
+                                                            {%- if sub-property[1].first %}
+                                                                <ul class="w3-ul w3-small">    
+                                                                {%- if sub-property[1].first.[1] != nill %}
+                                                                    {%- for sub-sub-property in sub-property[1] %}
+                                                                        <li><div class="w3-medium uppercase">{{sub-sub-property[0]}}</div>{{sub-sub-property[1]}}</li>
+                                                                    {%- endfor %}
+                                                                {%- else %}
+                                                                    {%- for value in sub-property[1] %}
+                                                                        {%- if value[1] != nill %}
+                                                                            <li><div class="w3-medium uppercase">{{value[0]}}</div>{{value[1]}}^</li>
+                                                                        {%- else %}
+                                                                            <li>{{value}}</li>
+                                                                        {%- endif %}
+                                                                    {%- endfor %}
+                                                                {%- endif %}
+                                                                </ul>
+                                                            {%- else %}
+                                                                {{sub-property[1]}}
+                                                            {%- endif %}
+                                                            </li>
+                                                        {%- endfor %}
+                                                    </ul>
+                                                {%- else %}
+                                                    <ul class="w3-ul w3-class">
+                                                    {%- for value in property[1] %}
+                                                        <li>{{value}}</li>
+                                                    {%- endfor %}
+                                                    </ul>
+                                                {%- endif %}
+                                            {%- else %}
+                                                {{property[1]}}
+                                            {%- endif %}
+                                        </li>
+                                        {%- endfor %}
+                                    </ul>
+                                </div>
+                                <div class="properties-set w3-container" id="prop-resource-{{ subOccurrenceId }}" style="display:none">
+                                    {%- for resource in sub-occurrence.State.Resources %}
+                                    <ul class="w3-ul w3-small">
+                                        <li><div class="w3-medium uppercase">Type</div> {{resource[0]}}</li>
+                                        <li><div class="w3-medium uppercase">Id</div> {{resource[1].Id}}</li>
+                                        <li><div class="w3-medium uppercase">Deployed</div> 
+                                            {%- if resource[1].Deployed %} 
+                                                <span class="w3-text-green">Yes</span>
+                                            {%- else %}
+                                                <span class="w3-text-red">No</span>
+                                            {%- endif %}   
+                                            </li>
+                                    </ul>
+                                    {%- endfor %}
+                                </div>
+                                <div class="properties-set w3-container" id="prop-attribute-{{ subOccurrenceId }}" style="display:none">
+                                    <ul class="w3-ul w3-small">
+                                        {%- for property in sub-occurrence.State.Attributes %}
+                                        <li><div class="w3-medium uppercase">{{property[0]}}</div> {{property[1]}}</li>
+                                        {%- endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            {%- endfor %}
+                        {%- endfor %}
+                    </div>
+                </div>
+            {%- endfor %} 
+        </div>
+    </div>
+    {%- endfor %}
+    {%- endfor %}
+    {%- endfor %}
+    {%- endfor %}
+    {%- endfor %}
+</div>
+{%- endfor %}
+{%- else %}
+    <h4>no data found {{include.model}}</h4>
+{%- endif -%}
