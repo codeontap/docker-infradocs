@@ -15,7 +15,7 @@ for (i = 0; i < acc.length; i++) {
     });
 }
 
-
+/*
 document.getElementById('hamburger-menu').onclick = function() {
     var nf = document.getElementById('mobile-menu');
 
@@ -33,3 +33,4 @@ window.addEventListener('click', function(e){
         document.getElementById('mobile-menu').style.display= 'none';
     }
 });
+*/

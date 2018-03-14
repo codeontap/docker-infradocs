@@ -3,6 +3,6 @@ _site
 .jekyll-metadata
 .idea
 _data/blueprints/*
-!_data/blueprints/README.md
 blueprints/*
-blueprint_nav.json
+!_data/blueprints/README.md
+_data/blueprint_nav.*
