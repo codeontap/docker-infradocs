@@ -1,11 +1,12 @@
-<div class="w3-sidebar w3-rightbar w3-border-blue" >
+<div class="w3-sidebar w3-rightbar w3-border-blue " style="width:20%">
     {%- assign current = page.url | downcase | split: '/' -%}
-    <a class="w3-bar w3-left-align w3-button" href="{{site.url}}">Home</a></li>
-    <div class="w3-padding"></div>
+    <div class="w3-container">
+    <h4><a class="w3-bar w3-center w3-button" href="{{site.url}}">Home</a></h4>
+    </div>
     {%- assign model = site.data.blueprint_nav.blueprints -%}
-    <div class="w3-bar w3-left-align w3-large w3-padding">Deployment Finder</div>
-    <div class="w3-container w3-padding">
-        <h4>Current Selection</h4>
+    <div class="w3-container">
+    <h4 class="w3-bar w3-center w3-padding">Deployment Finder</h4>
+        <h5>Current Selection</h5>
         <div class="w3-cell-row">
             <div id="level-tenant" class="sidebar-level-title w3-small w3-cell w3-text-dark-grey w3-left-align">Tenant</div>
             <div id="level-text-tenant" class="w3-small w3-cell w3-right-align"></div>
@@ -28,8 +29,8 @@
         </div>
     </div>
     <div class="w3-container w3-padding">
-        <h4>Components</h4>
-        <div id="level-current" class="w3-medium w3-bottombar w3-border-blue w3-padding">Tenant</div>
+        <h5>Components</h5>
+        <div id="level-current" class="w3-medium w3-border-bottom w3-border-blue w3-padding">Tenant</div>
         {%- for blueprint in model %}      
             {%- for tenant in blueprint.Tenants %}
                 <div id="sidebar-{{tenant.Name}}" class="deployment-nav deployment-tenant w3-border-bottom" onclick="openSideBarDeployments(event, 'tenant', 'product');">

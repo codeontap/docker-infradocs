@@ -28,10 +28,8 @@ img{
 
 .main-content{
   display: table;
-  padding: 0 15px;
   width: 100%;
-  max-width: 1300px;
-  margin: 0 auto;
+  max-width: 1500px;
 
   @media screen and (max-width: 768px) {
     display: block;
@@ -41,13 +39,10 @@ img{
 .page-sidebar,
 .page-content{
   display: table-cell;
-  padding: 30px 0;
   vertical-align: top;
 }
 
 .page-sidebar{
-  border-right: 1px solid $app-light-grey;
-  width: 150px;
 
   .sidebar-menu{
     list-style: none;
@@ -141,8 +136,8 @@ img{
 }
 
 .page-content{
-  padding-left: 35px;
-  max-width: 835px;
+  padding-left: 20px;
+  max-width: 100%;
 }
 
 @media screen and (max-width: 768px){
@@ -180,147 +175,6 @@ pre {
   font-size: 1em;
 }
 
-hr {
-  box-sizing: content-box;
-  height: 0;
-  overflow: visible;
-}
-
-input {
-  font: inherit;
-  margin: 0;
-}
-
-input {
-  overflow: visible;
-}
-
-[type="checkbox"] {
-  box-sizing: border-box;
-  padding: 0;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-input {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-}
-
-a {
-  color: #0366d6;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-strong {
-  font-weight: 600;
-}
-
-hr {
-  height: 0;
-  margin: 15px 0;
-  overflow: hidden;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid #dfe2e5;
-}
-
-hr::before {
-  display: table;
-  content: "";
-}
-
-hr::after {
-  display: table;
-  clear: both;
-  content: "";
-}
-
-table {
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-
-td,
-th {
-  padding: 0;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-h1 {
-  font-size: 32px;
-  font-weight: 600;
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: 600;
-}
-
-h3 {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-h4 {
-  font-size: 16px;
-  font-weight: 600;
-}
-
-h5 {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-h6 {
-  font-size: 12px;
-  font-weight: 600;
-}
-
-p {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-blockquote {
-  margin: 0;
-}
-
-ul,
-ol {
-  padding-left: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-ol ol,
-ul ol {
-  list-style-type: lower-roman;
-}
-
-ul ul ol,
-ul ol ol,
-ol ul ol,
-ol ol ol {
-  list-style-type: lower-alpha;
-}
-
 dd {
   margin-left: 0;
 }
@@ -337,139 +191,6 @@ pre {
   font-size: 12px;
 }
 
-a:not([href]) {
-  color: inherit;
-  text-decoration: none;
-}
-
-.anchor {
-  float: left;
-  padding-right: 4px;
-  margin-left: -20px;
-  line-height: 1;
-}
-
-.anchor:focus {
-  outline: none;
-}
-
-p,
-blockquote,
-ul,
-ol,
-dl,
-table,
-pre {
-  margin-top: 0;
-  margin-bottom: 16px;
-}
-
-hr {
-  height: 0.25em;
-  padding: 0;
-  margin: 24px 0;
-  background-color: #e1e4e8;
-  border: 0;
-}
-
-blockquote {
-  padding: 0 1em;
-  color: #6a737d;
-  border-left: 0.25em solid #dfe2e5;
-}
-
-blockquote>:first-child {
-  margin-top: 0;
-}
-
-blockquote>:last-child {
-  margin-bottom: 0;
-}
-
-kbd {
-  display: inline-block;
-  padding: 3px 5px;
-  font-size: 11px;
-  line-height: 10px;
-  color: #444d56;
-  vertical-align: middle;
-  background-color: #fafbfc;
-  border: solid 1px #c6cbd1;
-  border-bottom-color: #959da5;
-  border-radius: 3px;
-  box-shadow: inset 0 -1px 0 #959da5;
-}
-
-ul, ol {
-  padding-left: 2em;
-}
-
-ul ul,
-ul ol,
-ol ol,
-ol ul {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-li {
-  word-wrap: break-all;
-}
-
-li>p {
-  margin-top: 16px;
-}
-
-li+li {
-  margin-top: 0.25em;
-}
-
-dl {
-  padding: 0;
-}
-
-dl dt {
-  padding: 0;
-  margin-top: 16px;
-  font-size: 1em;
-  font-style: italic;
-  font-weight: 600;
-}
-
-dl dd {
-  padding: 0 16px;
-  margin-bottom: 16px;
-}
-
-table {
-  display: block;
-  width: 100%;
-  overflow: auto;
-}
-
-table th {
-  font-weight: 600;
-}
-
-table th,
-table td {
-  padding: 6px 13px;
-  border: 1px solid #dfe2e5;
-}
-
-table tr {
-  background-color: #fff;
-  border-top: 1px solid #c6cbd1;
-}
-
-table tr:nth-child(2n) {
-  background-color: #f6f8fa;
-}
-
-img {
-  max-width: 100%;
-  box-sizing: content-box;
-}
 
 code {
   padding: 0.2em 0.4em;
@@ -537,7 +258,6 @@ kbd {
   border-radius: 3px;
   box-shadow: inset 0 -1px 0 #c6cbd1;
 }
-
 
 hr {
   border-bottom-color: #eee;
