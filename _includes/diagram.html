@@ -1,90 +1,84 @@
 {%- for tenant in include.model.Tenants %}
 <div class="w3-container ">
-    <h3></h3>
-    <div class="w3-row w3-container w3-padding">
-        <div class="w3-col w3-quarter" >
-            <span class="w3-medium">Tenant: </span><span class="w3-tag w3-round-large">{{ tenant.Configuration.Name }}</span>
-        </div>
-        {%- for product in tenant.Products %}
-        <div class="w3-col w3-quarter" >
-            <span class="w3-medium">Product: </span><span class="w3-tag w3-round-large">{{ product.Configuration.Name }}</span>
-        </div>
-        {%- for environment in product.Environments %}
-        <div class="w3-col w3-quarter">
-            <span class="w3-medium">Environment: </span><span class="w3-tag w3-round-large">{{ environment.Configuration.Name }}</span>
-        </div>
-        {% for solution in environment.Solutions %}
-        <div class="w3-col w3-quarter">
-            <span class="w3-medium">Solution: </span><span class="w3-tag w3-round-large"> {{ solution.Configuration.Name }}</span>
-        </div>
-        {%- for segment in solution.Segments %}
-        <div class="w3-col w3-quarter">
-            <span class="w3-medium">Segment: </span><span class="w3-tag w3-round-large">{{ segment.Configuration.Name }}</span>
+    <div class="w3-border-bottom w3-margin w3-padding">
+        <div class="w3-row w3-container">
+            <div class="w3-col w3-padding-small w3-center" style="width:20%" >
+                <span class="w3-medium">Tenant: </span><span class="w3-tag w3-round">{{ tenant.Configuration.Name }}</span>
+            </div>
+            {%- for product in tenant.Products %}
+            <div class="w3-col w3-padding-small w3-center" style="width:20%" >
+                <span class="w3-medium">Product: </span><span class="w3-tag w3-round">{{ product.Configuration.Name }}</span>
+            </div>
+            {%- for environment in product.Environments %}
+            <div class="w3-col w3-padding-small w3-center" style="width:20%">
+                <span class="w3-medium">Environment: </span><span class="w3-tag w3-round">{{ environment.Configuration.Name }}</span>
+            </div>
+            {% for solution in environment.Solutions %}
+            <div class="w3-col w3-padding-small w3-center" style="width:20%">
+                <span class="w3-medium">Solution: </span><span class="w3-tag w3-round"> {{ solution.Configuration.Name }}</span>
+            </div>
+            {%- for segment in solution.Segments %}
+            <div class="w3-col w3-padding-small w3-center" style="width:20%">
+                <span class="w3-medium">Segment: </span><span class="w3-tag w3-round">{{ segment.Configuration.Name }}</span>
+            </div>
         </div>
     </div>
 
     {%- for tier in segment.Tiers %}
     <div class="w3-border w3-margin">
         <header class="w3-container w3-green w3-large">Tier: {{ tier.Configuration.Name }}</header>
-        <div class="w3-container">
+        <div class="w3-container w3-row-padding">
             {%- for component in tier.Components %}
             {% capture componentId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}{% endcapture %}
-            <div>
-                <div class="w3-card w3-padding w3-margin w3-border" >
-                    <div class="w3-row">
-                        <div class="w3-container w3-col m1 w3-center">
-                            <img src="http://via.placeholder.com/250x250">
-                        </div>
-                        <div class="w3-container w3-center w3-col m3">
-                                <h2>{{component.Id}}</h2>
-                                <div class="w3-small">{{component.Occurrences[0].Core.Type}}</div>
-                        </div>
-                        <div class="w3-container w3-col m8 w3-center">
-                            <table class="w3-table w3-hoverable">
-                                <thead>
-                                    <tr class="w3-light-grey">
-                                        <th>Occurrence</th>
-                                        <th>Sub Occurrence</th>
-                                        <th>Type</th>
-                                    </tr>
-                                </thead>
-                                {%- for occurrence in component.Occurrences  %}
-                                    {%- capture occurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}{%- endcapture %}
-                                    <tr class="occurrenceSelector" onclick="event.stopPropagation(); openItemPropertyTab(event, '{{occurrenceId}}');">
-                                        <td colspan="2" ><span class="w3-small">{{occurrence.Core.Name}}</span></td>
-                                        <td><span class="w3-small">{{occurrence.Core.Type}}</span></td>
-                                    </tr>
-                                    
-                                    {%- for sub-occurrence in occurrence.Occurrences %}
-                                        {%- capture subOccurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}-{{sub-occurrence.Core.Id}}{%- endcapture %}
-                                        <tr class="occurrenceSelector" onclick="event.stopPropagation(); openItemPropertyTab(event, '{{subOccurrenceId}}');">
-                                            <td></td>
-                                            <td> 
-                                                    <span class="w3-small"> 
-                                                    {%- if sub-occurrence.Configuration.Containers != nill %} 
-                                                        {%- for container in sub-occurrence.Configuration.Containers %}
-                                                            {{container[1].Name}} 
-                                                        {%- endfor %}
-                                                    {%- else %} 
-                                                        {{sub-occurrence.Core.Name}} 
-                                                    {%- endif %} 
-                                                    </span>
-                                            </td>
-                                            <td>
-                                                <span class="w3-small w3-padding">{{sub-occurrence.Core.Type}}</span>
-                                            </td>
-                                        </tr>
-                                    {%- endfor %}                                                                        
-                                {%- endfor %}
-                                </table>
-                            </div>
-                        </div>
+                <div id="{{componentId}}" class="component-card w3-card w3-margin w3-border w3-col s2 w3-button" onclick="showOccurrenceTable(event, '{{componentId}}');" >
+                    <div class="w3-cell-middle w3-center">
+                        <h4>{{component.Id}}</h4>
+                        <div class="w3-small w3-text-grey">{{component.Occurrences[0].Core.Type}}</div>
                     </div>
-                    
+                    <div id="occurencetable-{{componentId}}" class="w3-container w3-cell w3-hide w3-padding w3-margin">
+                        <button class="table-close w3-button w3-hover-dark-red w3-red w3-tiny" onclick="showOccurrenceTable(event, '{{componentId}}');">Close &times</button>
+                        <table class="w3-table w3-margin w3-hoverable">
+                            <thead>
+                                <tr class="w3-light-grey">
+                                    <th>Occurrence</th>
+                                    <th>Sub Occurrence</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            {%- for occurrence in component.Occurrences  %}
+                                {%- capture occurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}{%- endcapture %}
+                                <tr class="occurrenceSelector" onclick="event.stopPropagation(); openItemPropertyTab(event, '{{occurrenceId}}');">
+                                    <td colspan="2" ><span class="w3-small">{{occurrence.Core.Name}}</span></td>
+                                    <td><span class="w3-small">{{occurrence.Core.Type}}</span></td>
+                                </tr>
+                                
+                                {%- for sub-occurrence in occurrence.Occurrences %}
+                                    {%- capture subOccurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}-{{sub-occurrence.Core.Id}}{%- endcapture %}
+                                    <tr class="occurrenceSelector" onclick="event.stopPropagation(); openItemPropertyTab(event, '{{subOccurrenceId}}');">
+                                        <td></td>
+                                        <td> 
+                                                <span class="w3-small"> 
+                                                {%- if sub-occurrence.Configuration.Containers != nill %} 
+                                                    {%- for container in sub-occurrence.Configuration.Containers %}
+                                                        {{container[1].Name}} 
+                                                    {%- endfor %}
+                                                {%- else %} 
+                                                    {{sub-occurrence.Core.Name}} 
+                                                {%- endif %} 
+                                                </span>
+                                        </td>
+                                        <td>
+                                            <span class="w3-small w3-padding">{{sub-occurrence.Core.Type}}</span>
+                                        </td>
+                                    </tr>
+                                {%- endfor %}                                                                        
+                            {%- endfor %}
+                            </table>
+                        </div>
                     <div>
                         {%- for occurrence in component.Occurrences %}
                             {%- capture occurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}{%- endcapture %}
-                            <div class="diagram-properties w3-container w3-border w3-hide w3-margin" id="prop-{{occurrenceId}}">
+                            <div class="diagram-properties w3-container w3-hide w3-margin w3-border-top" id="prop-{{occurrenceId}}">
                             <div class="w3-panel">
                                 <span class="w3-large w3-margin">Properties </span><span clas="w3-small"  >{{occurrence.Core.Name}}</span>
                             </div>

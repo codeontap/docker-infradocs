@@ -5,8 +5,7 @@
     </div>
     {%- assign model = site.data.blueprint_nav.blueprints -%}
     <div class="w3-container">
-    <h4 class="w3-bar w3-center w3-padding">Deployment Finder</h4>
-        <h5>Current Selection</h5>
+        <h4 class="w3-bar w3-padding w3-center w3-border-top">Deployment Finder</h4>
         <div class="w3-cell-row">
             <div id="level-tenant" class="sidebar-level-title w3-small w3-cell w3-text-dark-grey w3-left-align">Tenant</div>
             <div id="level-text-tenant" class="w3-small w3-cell w3-right-align"></div>
@@ -28,9 +27,8 @@
             <div id="level-text-segment" class="w3-small w3-cell w3-right-align w3-hide"></div>
         </div>
     </div>
-    <div class="w3-container w3-padding">
-        <h5>Components</h5>
-        <div id="level-current" class="w3-medium w3-border-bottom w3-border-blue w3-padding">Tenant</div>
+    <div class="w3-container w3-border-top w3-margin">
+        <div id="level-current" class="w3-medium w3-border-bottom w3-border-blue w3-padding-small">Tenant</div>
         {%- for blueprint in model %}      
             {%- for tenant in blueprint.Tenants %}
                 <div id="sidebar-{{tenant.Name}}" class="deployment-nav deployment-tenant w3-border-bottom" onclick="openSideBarDeployments(event, 'tenant', 'product');">
