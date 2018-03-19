@@ -58,3 +58,56 @@ function openItemPropertyTab(evt, itemId) {
     }   
 };
 
+function showOccurrenceTable(evt, componentId ) { 
+
+    var i ;
+
+    if (evt.stopPropagation) {
+        evt.stopPropagation();   // W3C model
+    } else {
+        evt.cancelBubble = true; // IE model
+    }
+
+    var componentCard = document.getElementById(componentId)
+    var occurrenceTable = document.getElementById("occurrencetable-"+componentId)
+
+    if ( evt.currentTarget.className.indexOf("component-card") >= 0 ) { 
+        componentCard.className = componentCard.className.replace(" w3-button", "");
+        componentCard.className = componentCard.className.replace(" s2" , " s12");
+        
+        if (occurrenceTable.className.indexOf("w3-hide") >= 0 ) { 
+            occurrenceTable.className += " w3-show";
+            occurrenceTable.className = occurrenceTable.className.replace(" w3-hide", "");
+        }
+        
+    }
+
+    if ( evt.currentTarget.className.indexOf("table-close") >= 0 ) { 
+        
+        var occurrenceTableItems = document.querySelectorAll("#occurrencetable-"+componentId+" > table > tbody > tr");
+
+        for ( i = 0; i < occurrenceTableItems.length; i++) { 
+            if ( occurrenceTableItems[i].className.indexOf("w3-blue") >= 0 ) { 
+                occurrenceTableItems[i].className = occurrenceTableItems[i].className.replace("w3-blue", "");
+            }
+        }
+
+        var occurrenceProperties = document.querySelectorAll('[id^="prop-'+componentId+'"]')
+
+        for (i = 0; i < occurrenceProperties.length; i++) {
+            if ( occurrenceProperties[i].className.indexOf("w3-show") >= 0 ) { 
+                occurrenceProperties[i].className += " w3-hide";
+                occurrenceProperties[i].className = occurrenceProperties[i].className.replace(" w3-show", "" );
+            } 
+        }
+
+        if ( occurrenceTable.className.indexOf("w3-show") >= 0 ) { 
+            occurrenceTable.className += " w3-hide";
+            occurrenceTable.className = occurrenceTable.className.replace(" w3-show", "");
+        }
+
+        componentCard.className += " w3-button";
+        componentCard.className = componentCard.className.replace(" s12" , " s2");
+
+    }
+}
