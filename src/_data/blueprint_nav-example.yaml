@@ -1,12 +1,11 @@
 ---
-blueprints:
-- Tenants:
-  - Tenant1:
-      Products:
-      - Product1:
-          Environments:
-          - env1:
-              Solutions:
-              - solution1:
-                  Segments:
-                  - segment1:
+Tenants:
+- Id: tenant1
+  Products:
+  - Id: product1
+    Environments:
+    - Id: environment1
+      Solutions:
+      - Id: solution1
+        Segments:
+        - Id: segment1

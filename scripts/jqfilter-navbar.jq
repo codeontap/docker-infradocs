@@ -1,1 +1,0 @@
-.Tenants[0].Id = ($tenant) | .Tenants[0].Products[0].Id = ($product) | .Tenants[0].Products[0].Environments[0].Id = ($environment) | .Tenants[0].Products[0].Environments[0].Solutions[0].Id = ($solution) | .Tenants[0].Products[0].Environments[0].Solutions[0].Segments[0].Id = ($segment)

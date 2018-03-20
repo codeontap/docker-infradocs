@@ -3,7 +3,6 @@
     <div class="w3-container">
     <h4><a class="w3-bar w3-center w3-button" href="{{ site.url }}">Home</a></h4>
     </div>
-    {%- assign model = site.data.blueprint_nav.blueprints -%}
     <div class="w3-container">
         <h4 class="w3-bar w3-padding w3-center w3-border-top">Deployment Finder</h4>
         <div class="w3-cell-row">
@@ -29,26 +28,27 @@
     </div>
     <div class="w3-container w3-border-top w3-margin">
         <div id="level-current" class="w3-medium w3-border-bottom w3-border-blue w3-padding-small">Tenant</div>
+        {%- assign model = site.data.blueprint_nav.Blueprints -%}
         {%- for blueprint in model %}      
             {%- for tenant in blueprint.Tenants %}
-                <div id="sidebar-{{tenant.Name}}" class="deployment-nav deployment-tenant w3-border-bottom" onclick="openSideBarDeployments(event, 'tenant', 'product');">
-                <a class="w3-bar w3-button">{{tenant.Name}}</a>
+                <div id="sidebar-{{tenant.Id}}" class="deployment-nav deployment-tenant w3-border-bottom" onclick="openSideBarDeployments(event, 'tenant', 'product');">
+                <a class="w3-bar w3-button">{{tenant.Id}}</a>
                 </div>
                 {%- for product in tenant.Products %}
-                    <div id="sidebar-{{tenant.Name}}-{{product.Name}}" class="deployment-nav deployment-product w3-border-bottom w3-hide" onclick="openSideBarDeployments(event, 'product', 'environment');">
-                    <a class="w3-bar w3-button">{{product.Name}}</a>
+                    <div id="sidebar-{{tenant.Id}}-{{product.Id}}" class="deployment-nav deployment-product w3-border-bottom w3-hide" onclick="openSideBarDeployments(event, 'product', 'environment');">
+                    <a class="w3-bar w3-button">{{product.Id}}</a>
                     </div>
                     {%- for environment in product.Environments %}
-                        <div id="sidebar-{{tenant.Name}}-{{product.Name}}-{{environment.Name}}" class="deployment-nav deployment-environment w3-border-bottom  w3-hide" onclick="openSideBarDeployments(event, 'environment', 'solution');">
-                            <a class="w3-bar w3-button">{{environment.Name}}</a>
+                        <div id="sidebar-{{tenant.Id}}-{{product.Id}}-{{environment.Id}}" class="deployment-nav deployment-environment w3-border-bottom  w3-hide" onclick="openSideBarDeployments(event, 'environment', 'solution');">
+                            <a class="w3-bar w3-button">{{environment.Id}}</a>
                         </div>
                         {%- for solution in environment.Solutions %}
-                            <div id="sidebar-{{tenant.Name}}-{{product.Name}}-{{environment.Name}}-{{solution.Name}}" class="deployment-nav deployment-solution w3-border-bottom w3-hide" onclick="openSideBarDeployments(event, 'solution', 'segment');">
-                            <a class="w3-bar w3-button">{{solution.Name}}</a>
+                            <div id="sidebar-{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}" class="deployment-nav deployment-solution w3-border-bottom w3-hide" onclick="openSideBarDeployments(event, 'solution', 'segment');">
+                            <a class="w3-bar w3-button">{{solution.Id}}</a>
                             </div>
                             {%- for segment in solution.Segments %}
-                                <div id="sidebar-{{tenant.Name}}-{{product.Name}}-{{environment.Name}}-{{solution.Name}}-{{segment.Name}}" class="deployment-nav deployment-segment w3-border-bottom w3-hide">
-                                <a class="w3-bar w3-button" href="/blueprints/{{tenant.Name}}/{{product.Name}}/{{environment.Name}}/{{solution.Name}}/{{segment.Name}}/index.html">{{segment.Name}}</a>
+                                <div id="sidebar-{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}" class="deployment-nav deployment-segment w3-border-bottom w3-hide">
+                                <a class="w3-bar w3-button" href="/blueprints/{{tenant.Id}}/{{product.Id}}/{{environment.Id}}/{{solution.Id}}/{{segment.Id}}/index.html">{{segment.Id}}</a>
                                 </div>
                             {%- endfor %}
                         {%- endfor %}
