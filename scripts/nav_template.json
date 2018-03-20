@@ -1,0 +1,27 @@
+{
+    "Tenants" : [
+        {
+            "Id" : "",
+            "Products" : [
+                {
+                    "Id": "",
+                    "Environments" : [
+                        {
+                            "Id" : "",
+                            "Solutions" : [
+                                {
+                                    "Id" : "",
+                                    "Segments" : [
+                                        {
+                                            "Id" : ""
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

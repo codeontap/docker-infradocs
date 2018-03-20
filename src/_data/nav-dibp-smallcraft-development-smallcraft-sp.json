@@ -1,0 +1,27 @@
+{
+  "Tenants": [
+    {
+      "Id": "dibp",
+      "Products": [
+        {
+          "Id": "smallcraft",
+          "Environments": [
+            {
+              "Id": "development",
+              "Solutions": [
+                {
+                  "Id": "smallcraft",
+                  "Segments": [
+                    {
+                      "Id": "sp"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
