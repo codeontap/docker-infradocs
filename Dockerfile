@@ -2,14 +2,25 @@ FROM jekyll/builder:latest
 
 LABEL MAINTAINER="codeontap"
 
+RUN apk update
+RUN apk upgrade
+RUN apk add bash
+RUN apk add jq
+
+RUN mkdir /indir
+RUN mkdir /outdir
+
+RUN chmod ugo+rwx /indir
+RUN chmod ugo+rwx /outdir
+
 RUN mkdir /srv/jekyll/blueprints
 RUN mkdir /srv/jekyll/_site 
 
-VOLUME  /srv/jekyll/blueprints
-VOLUME /srv/jekyll/_site
+VOLUME /outdir
+VOLUME /indir 
 
 COPY ./src /srv/jekyll
-COPY ./scripts/build-infradocs.sh /srv/jekyll/build-infradocs.sh
-COPY ./scripts/nav_template.json /srv/jekyll/nav_template.json
+COPY ./scripts/build-infradocs.sh /tmp/build-infradocs.sh
+COPY ./scripts/nav_template.json /tmp/nav_template.json
 
-CMD ["sh", "/srv/jekyll/build-infradocs.sh"]
+CMD ["bash", "/tmp/build-infradocs.sh"]
