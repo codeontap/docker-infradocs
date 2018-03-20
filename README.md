@@ -1,7 +1,18 @@
-# CodeOnTap Infrastructure Deployment Documentation
+# CodeOnTap InfraDocs
 
-This repo contains a Jekyll site used to generate infrastructure documentation created by the codeontap generation and deployment process.
+InfraDocs is a Jekyll based site which provides an outline of infrastructure components that have been deployed by CodeOnTap. The uses CodeOnTap Blueprint files to generate the documentation, multiple blueprints can be served from the same infradocs instance.  The intention of the site is that it is hosted with an automation server or a central architecture site. 
 
 ## Usage
 
-Update the _data/blueprint_nav.json to include your new deployment. When the codeontap deployment process kicks off the blueprint data will be uploaded to your instance of this site. The site will then rebuild and display the infrastructure details under the menu that you created.
+Generate Blueprint files and place them within a central folder. All files should be called blueprint.json and each deployment should live in a folder structure that represents its deployment.
+
+````text
+|- root
+|   - <TenantId>
+|       - <ProductId>
+|           - <EnvironmentId>
+|               - <SolutionId>
+|                   - <SegmentId>
+````
+
+Once you have the folder created then mount this volume to /indir on the codeontap/infradocs container. Using this blueprint structure the site will be built and available for hosting in the /outdir of the container
