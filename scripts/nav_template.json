@@ -8,14 +8,9 @@
                     "Environments" : [
                         {
                             "Id" : "",
-                            "Solutions" : [
+                            "Segments" : [
                                 {
-                                    "Id" : "",
-                                    "Segments" : [
-                                        {
-                                            "Id" : ""
-                                        }
-                                    ]
+                                    "Id" : ""
                                 }
                             ]
                         }

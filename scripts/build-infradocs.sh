@@ -11,24 +11,23 @@ for blueprint in ${BLUEPRINTS}; do
 tenant=$(echo "${blueprint}" | awk -F"/" '{print $6}')
 product=$(echo "${blueprint}" | awk -F"/" '{print $7}')
 environment=$(echo "${blueprint}" | awk -F"/" '{print $8}')
-solution=$(echo "${blueprint}" | awk -F"/" '{print $9}')
-segment=$(echo "${blueprint}" | awk -F"/" '{print $10}')
+segment=$(echo "${blueprint}" | awk -F"/" '{print $9}')
 
-echo "Deployment Found - ${tenant}-${product}-${environment}-${solution}-${segment}"
+echo "Deployment Found - ${tenant}-${product}-${environment}-${segment}"
 
-mkdir -p /srv/jekyll/blueprints/${tenant}/${product}/${environment}/${solution}/${segment}
+mkdir -p /srv/jekyll/blueprints/${tenant}/${product}/${environment}/${segment}
 
-cat << EOF > /srv/jekyll/blueprints/${tenant}/${product}/${environment}/${solution}/${segment}/index.html
+cat << EOF > /srv/jekyll/blueprints/${tenant}/${product}/${environment}/${segment}/index.html
 ---
 title: Deployment
 layout: diagram
 ---
-{% include diagram.html model=site.data.blueprints.${tenant}.${product}.${environment}.${solution}.${segment}.blueprint %}
+{% include diagram.html model=site.data.blueprints.${tenant}.${product}.${environment}.${segment}.blueprint %}
 EOF
 
-jq -r --arg tenant "${tenant}" --arg product "${product}" --arg environment "${environment}" --arg solution "${solution}" --arg segment "${segment}" \
-'.Tenants[0].Id = ($tenant) | .Tenants[0].Products[0].Id = ($product) | .Tenants[0].Products[0].Environments[0].Id = ($environment) | .Tenants[0].Products[0].Environments[0].Solutions[0].Id = ($solution) | .Tenants[0].Products[0].Environments[0].Solutions[0].Segments[0].Id = ($segment)' \
-< /tmp/nav_template.json > /srv/jekyll/_data/blueprint_nav-${tenant}-${product}-${environment}-${solution}-${segment}.json
+jq -r --arg tenant "${tenant}" --arg product "${product}" --arg environment "${environment}"  --arg segment "${segment}" \
+'.Tenants[0].Id = ($tenant) | .Tenants[0].Products[0].Id = ($product) | .Tenants[0].Products[0].Environments[0].Id = ($environment) | .Tenants[0].Products[0].Environments[0].Segments[0].Id = ($segment)' \
+< /tmp/nav_template.json > /srv/jekyll/_data/blueprint_nav-${tenant}-${product}-${environment}-${segment}.json
 done
 
 echo "Generating Navigation..."
