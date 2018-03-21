@@ -13,11 +13,7 @@
             <div class="w3-col w3-padding-small w3-center" style="width:20%">
                 <span class="w3-medium">Environment: </span><span class="w3-tag w3-round">{{ environment.Configuration.Name }}</span>
             </div>
-            {% for solution in environment.Solutions %}
-            <div class="w3-col w3-padding-small w3-center" style="width:20%">
-                <span class="w3-medium">Solution: </span><span class="w3-tag w3-round"> {{ solution.Configuration.Name }}</span>
-            </div>
-            {%- for segment in solution.Segments %}
+            {%- for segment in environment.Segments %}
             <div class="w3-col w3-padding-small w3-center" style="width:20%">
                 <span class="w3-medium">Segment: </span><span class="w3-tag w3-round">{{ segment.Configuration.Name }}</span>
             </div>
@@ -29,7 +25,7 @@
         <header class="w3-container w3-green w3-large">Tier: {{ tier.Configuration.Name }}</header>
         <div class="w3-container w3-row-padding">
             {%- for component in tier.Components %}
-            {% capture componentId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}{% endcapture %}
+            {% capture componentId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}{% endcapture %}
                 <div id="{{componentId}}" class="component-card w3-card w3-margin w3-border w3-col s2 w3-button" onclick="showOccurrenceTable(event, '{{componentId}}');" >
                     <div class="w3-cell-middle w3-center">
                         <h4>{{component.Id}}</h4>
@@ -46,14 +42,14 @@
                                 </tr>
                             </thead>
                             {%- for occurrence in component.Occurrences  %}
-                                {%- capture occurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}{%- endcapture %}
+                                {%- capture occurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}{%- endcapture %}
                                 <tr class="occurrenceSelector" onclick="event.stopPropagation(); openItemPropertyTab(event, '{{occurrenceId}}');">
                                     <td colspan="2" ><span class="w3-small">{{occurrence.Core.Name}}</span></td>
                                     <td><span class="w3-small">{{occurrence.Core.Type}}</span></td>
                                 </tr>
                                 
                                 {%- for sub-occurrence in occurrence.Occurrences %}
-                                    {%- capture subOccurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}-{{sub-occurrence.Core.Id}}{%- endcapture %}
+                                    {%- capture subOccurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}-{{sub-occurrence.Core.Id}}{%- endcapture %}
                                     <tr class="occurrenceSelector" onclick="event.stopPropagation(); openItemPropertyTab(event, '{{subOccurrenceId}}');">
                                         <td></td>
                                         <td> 
@@ -77,7 +73,7 @@
                         </div>
                     <div>
                         {%- for occurrence in component.Occurrences %}
-                            {%- capture occurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}{%- endcapture %}
+                            {%- capture occurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}{%- endcapture %}
                             <div class="diagram-properties w3-container w3-hide w3-margin w3-border-top" id="prop-{{occurrenceId}}">
                             <div class="w3-panel">
                                 <span class="w3-large w3-margin">Properties </span><span clas="w3-small"  >{{occurrence.Core.Name}}</span>
@@ -164,7 +160,7 @@
                                 </div>
                             </div>
                             {%- for sub-occurrence in occurrence.Occurrences %}
-                            {%- capture subOccurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}-{{sub-occurrence.Core.Id}}{%- endcapture %}
+                            {%- capture subOccurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}-{{sub-occurrence.Core.Id}}{%- endcapture %}
                             <div class="diagram-properties w3-container w3-border w3-hide w3-margin" id="prop-{{subOccurrenceId}}">
                             <div class="w3-panel">
                                 <span class="w3-large w3-margin">Properties </span><span clas="w3-small"  >{{sub-occurrence.Core.Name}}</span>
@@ -257,7 +253,6 @@
             {%- endfor %} 
         </div>
     </div>
-    {%- endfor %}
     {%- endfor %}
     {%- endfor %}
     {%- endfor %}
