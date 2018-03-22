@@ -3,19 +3,24 @@ cp -r /indir/ /srv/jekyll/_data/blueprints/
 
 echo "Generating Blueprint Structure..."
 # Find all of the blueprint files listed 
-declare -a BLUEPRINTS=$(find /srv/jekyll/_data/blueprints -type f -name blueprint.json)
+declare -a BLUEPRINTS=$(find /srv/jekyll/_data/blueprints -type f -name "*blueprint.json")
 
 # Generate an index.html file for each blueprint 
 for blueprint in ${BLUEPRINTS}; do 
 
-tenant=$(echo "${blueprint}" | awk -F"/" '{print $6}')
-product=$(echo "${blueprint}" | awk -F"/" '{print $7}')
-environment=$(echo "${blueprint}" | awk -F"/" '{print $8}')
-segment=$(echo "${blueprint}" | awk -F"/" '{print $9}')
+tenant=$(basename "${blueprint}" | awk -F"-" '{print $1}')
+product=$(basename "${blueprint}" | awk -F"-" '{print $2}')
+environment=$(basename "${blueprint}" | awk -F"-" '{print $3}')
+segment=$(basename "${blueprint}" | awk -F"-" '{print $4}')
 
 echo "Deployment Found - ${tenant}-${product}-${environment}-${segment}"
 
 mkdir -p /srv/jekyll/blueprints/${tenant}/${product}/${environment}/${segment}
+mkdir -p /srv/jekyll/_data/blueprints/${tenant}/${product}/${environment}/${segment}/
+
+cp "${blueprint}" "/srv/jekyll/_data/blueprints/${tenant}/${product}/${environment}/${segment}/blueprint.json"
+cp "${blueprint}" "/srv/jekyll/blueprints/${tenant}/${product}/${environment}/${segment}/blueprint.json" 
+rm "${blueprint}"
 
 cat << EOF > /srv/jekyll/blueprints/${tenant}/${product}/${environment}/${segment}/index.html
 ---
