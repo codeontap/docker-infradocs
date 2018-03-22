@@ -5,6 +5,8 @@ echo "Generating Blueprint Structure..."
 # Find all of the blueprint files listed 
 declare -a BLUEPRINTS=$(find /srv/jekyll/_data/blueprints -type f -name "*blueprint.json")
 
+ls -la /srv/jekyll/_data/blueprints
+
 # Generate an index.html file for each blueprint 
 for blueprint in ${BLUEPRINTS}; do 
 
