@@ -24,12 +24,13 @@
     <div class="w3-border w3-margin">
         <header class="w3-container w3-green w3-large">Tier: {{ tier.Configuration.Name }}</header>
         <div class="w3-container w3-row-padding">
+        <h5 class="w3-left-align">Components</h5> 
             {%- for component in tier.Components %}
             {% capture componentId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}{% endcapture %}
                 <div id="{{componentId}}" class="component-card w3-card w3-margin w3-border w3-col s2 w3-button" onclick="showOccurrenceTable(event, '{{componentId}}');" >
                     <div class="w3-cell-middle w3-center">
                         <h4>{{component.Id}}</h4>
-                        <div class="w3-small w3-text-grey">{{component.Occurrences[0].Core.Type}}</div>
+                        <div class="w3-small w3-text-grey">{{component.Type}}</div>
                     </div>
                     <div id="occurrencetable-{{componentId}}" class="w3-container w3-cell w3-hide w3-padding w3-margin">
                         <button class="table-close w3-button w3-hover-dark-red w3-red w3-tiny" onclick="showOccurrenceTable(event, '{{componentId}}');">Close &times</button>
@@ -41,6 +42,11 @@
                                     <th>Type</th>
                                 </tr>
                             </thead>
+                            {%- if component.Occurrences.size == 0 %}
+                                <tr>
+                                    <td colspan="3"><span class="w3-small w3-center">No deployed occurrences available</span></td>
+                                </tr>
+                            {%- endif %}
                             {%- for occurrence in component.Occurrences  %}
                                 {%- capture occurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}{%- endcapture %}
                                 <tr class="occurrenceSelector" onclick="event.stopPropagation(); openItemPropertyTab(event, '{{occurrenceId}}');">
