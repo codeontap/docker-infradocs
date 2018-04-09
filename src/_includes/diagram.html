@@ -92,30 +92,30 @@
                             </div>
                             <div class="properties-set w3-container" id="prop-core-{{ occurrenceId }}" >
                                 <ul class="w3-ul w3-small w3-show">
-                                    <li><div class="w3-medium uppercase">Name</div> {{occurrence.Core.Name}}</li>
-                                    <li><div class="w3-medium uppercase">Id</div> {{occurrence.Core.Id}}</li>
-                                    <li><div class="w3-medium uppercase">Type</div> {{occurrence.Core.Type}}</li>
+                                    <li><div class="w3-medium property-key">Name</div> {{occurrence.Core.Name}}</li>
+                                    <li><div class="w3-medium property-key">Id</div> {{occurrence.Core.Id}}</li>
+                                    <li><div class="w3-medium property-key">Type</div> {{occurrence.Core.Type}}</li>
                                 </ul> 
                             </div>
                                 <div class="properties-set w3-container" id="prop-config-{{ occurrenceId }}" style="display:none">
                                     <ul class="w3-ul w3-small">
                                         {%- for property in occurrence.Configuration  %}
-                                            <li><div class="w3-medium uppercase">{{property[0]}}</div> 
+                                            <li><div class="w3-medium property-key">{{property[0]}}</div> 
                                             {%- if property[1].first %}
                                                 {%- if property[1].first.[1] != nill %}
                                                     <ul class="w3-ul w3-small"> 
                                                         {%- for sub-property in property[1] %}
-                                                            <li><div class="w3-medium uppercase">{{sub-property[0]}}</div>
+                                                            <li><div class="w3-medium sub-property-key">{{sub-property[0]}}</div>
                                                             {%- if sub-property[1].first %}
                                                                 <ul class="w3-ul w3-small">    
                                                                 {%- if sub-property[1].first.[1] != nill %}
                                                                     {%- for sub-sub-property in sub-property[1] %}
-                                                                        <li><div class="w3-medium uppercase">{{sub-sub-property[0]}}</div>{{sub-sub-property[1]}}</li>
+                                                                        <li><div class="w3-medium sub-property-key">{{sub-sub-property[0]}}</div>{{sub-sub-property[1]}}</li>
                                                                     {%- endfor %}
                                                                 {%- else %}
                                                                     {%- for value in sub-property[1] %}
                                                                         {%- if value[1] != nill %}
-                                                                            <li><div class="w3-medium uppercase">{{value[0]}}</div>{{value[1]}}^</li>
+                                                                            <li><div class="w3-medium sub-property-key">{{value[0]}}</div>{{value[1]}}^</li>
                                                                         {%- else %}
                                                                             <li>{{value}}</li>
                                                                         {%- endif %}
@@ -142,25 +142,25 @@
                                         {%- endfor %}
                                     </ul>
                                 </div>
-                                <div class="properties-set w3-container" id="prop-resource-{{ occurrenceId }}" style="display:none">
-                                    {%- for resource in occurrence.State.Resources %}
-                                    <ul class="w3-ul w3-small">
-                                        <li><div class="w3-medium uppercase">Type</div> {{resource[0]}}</li>
-                                        <li><div class="w3-medium uppercase">Id</div> {{resource[1].Id}}</li>
-                                        <li><div class="w3-medium uppercase">Deployed</div> 
-                                            {%- if resource[1].Deployed %} 
-                                                <span class="w3-text-green">Yes</span>
-                                            {%- else %}
-                                                <span class="w3-text-red">No</span>
-                                            {%- endif %}   
-                                            </li>
-                                    </ul>
+                                <div class="properties-set w3-container w3-row w3-mobile" id="prop-resource-{{ occurrenceId }}" style="display:none">
+                                    {%- for resource in occurrence.State.Resources sort:"[1].Type" %}
+                                    <div class="w3-card w3-padding-small w3-margin w3-col s2 w3-center">
+                                        <div><img src="{{ "/images/resources/aws/" | relative_url}}{{resource[1].Type}}.svg" onerror="this.style.display='none'"></div>
+                                        <div class="w3-center"> {{resource[1].Type}}</div>
+                                        <div class="resource-properties w3-hide">
+                                            {%- for property in resource[1] %}
+                                                {%- unless {{property[0]}} == "Type" %}
+                                                    <div class="w3-left-align"><span class="property-key">{{property[0]}}:</span> {{property[1]}}</div>
+                                                {%- endunless %}
+                                            {%- endfor %}
+                                        </div>
+                                    </div>
                                     {%- endfor %}
                                 </div>
                                 <div class="properties-set w3-container" id="prop-attribute-{{ occurrenceId }}" style="display:none">
                                     <ul class="w3-ul w3-small">
                                         {%- for property in occurrence.State.Attributes %}
-                                        <li><div class="w3-medium uppercase">{{property[0]}}</div> {{property[1]}}</li>
+                                        <li><div class="w3-medium property-key">{{property[0]}}</div> {{property[1]}}</li>
                                         {%- endfor %}
                                     </ul>
                                 </div>
