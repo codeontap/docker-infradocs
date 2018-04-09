@@ -111,3 +111,24 @@ function showOccurrenceTable(evt, componentId ) {
 
     }
 }
+
+function showResourceTab(evt, resourceId) { 
+
+    if (evt.stopPropagation) {
+        evt.stopPropagation();   // W3C model
+    } else {
+        evt.cancelBubble = true; // IE model
+    }
+
+    resourceTab = document.getElementById("resource-properties-"+resourceId );
+        
+    if (resourceTab.className.indexOf("w3-hide") >= 0 ) { 
+        resourceTab.className += " w3-show";
+        resourceTab.className = resourceTab.className.replace(" w3-hide", "");
+        evt.currentTarget.className = evt.currentTarget.className.replace(" s2", " s4");
+    }
+    else { 
+        resourceTab.className = resourceTab.className.replace(" w3-show", " w3-hide");
+        evt.currentTarget.className = evt.currentTarget.className.replace(" s4", " s2");
+    }   
+}
