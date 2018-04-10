@@ -20,6 +20,7 @@
         </div>
     </div>
 
+    <h3>Environment</h3>
     <div class="w3-row">
         <div class="w3-border w3-margin w3-cell w3-quarter">
             <header class="w3-container w3-blue w3-large">Account: {{segment.Account.Name}}</header>
@@ -41,6 +42,7 @@
             </div>
     </div>
 
+    <h3>Deployment</h3>
     {%- for tier in segment.Tiers %}
     <div class="w3-border w3-margin">
         <header class="w3-container w3-green w3-large">Tier: {{ tier.Configuration.Name }}</header>
