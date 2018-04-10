@@ -1,6 +1,6 @@
 {%- for tenant in include.model.Tenants %}
-<div class="w3-container ">
-    <div class="w3-border-bottom w3-margin w3-padding">
+<div class="w3-container w3-padding-small">
+    <div class="w3-border-bottom w3-margin ">
         <div class="w3-row w3-container">
             <div class="w3-col w3-padding-small w3-center" style="width:20%" >
                 <span class="w3-medium">Tenant: </span><span class="w3-tag w3-round">{{ tenant.Configuration.Name }}</span>
@@ -18,6 +18,27 @@
                 <span class="w3-medium">Segment: </span><span class="w3-tag w3-round">{{ segment.Configuration.Name }}</span>
             </div>
         </div>
+    </div>
+
+    <div class="w3-row">
+        <div class="w3-border w3-margin w3-cell w3-quarter">
+            <header class="w3-container w3-blue w3-large">Account: {{segment.Account.Name}}</header>
+                <ul class="w3-ul w3-small">
+                    <li><div class="property-key">Description</div>{{segment.Account.Title}}</li>
+                    <li><div class="property-key">Account Id</div>{{segment.Account.AWSId}}</li>
+                    <li><div class="property-key">Region</div>{{segment.Account.Region}}</li>
+                    <li><div class="property-key">Cost Centre</div>{{segment.Account.CostCentre}}</li>
+                </ul>
+        </div>
+        <div class="w3-border w3-margin w3-cell w3-quarter">
+                <header class="w3-container w3-blue w3-large">Segment: {{segment.Configuration.Title}} - {{segment.Id}} </header>
+                    <ul class="w3-ul w3-small">
+                        <li><div class="property-key">Internet Access</div>{{segment.Configuration.Network.InternetAccess}}</li>
+                        <li><div class="property-key">DNS Hostnames</div>{{segment.Configuration.Network.DNSHostnames}}</li>
+                        <li><div class="property-key">DNS Support</div>{{segment.Configuration.Network.DNSSupport}}</li>
+                        <li><div class="property-key">Internal Network</div>{{segment.Configuration.Network.CIDR.Address}}/{{segment.Configuration.Network.CIDR.Mask}}</li>
+                    </ul>
+            </div>
     </div>
 
     {%- for tier in segment.Tiers %}
