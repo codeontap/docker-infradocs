@@ -18,9 +18,6 @@ echo "Deployment Found - ${tenant}-${product}-${environment}-${segment}"
 mkdir -p /srv/jekyll/blueprints/${tenant}/${product}/${environment}/${segment}
 mkdir -p /srv/jekyll/_data/blueprints/${tenant}/${product}/${environment}/${segment}/
 
-chmod -R ugo+rwx /srv/jekyll/blueprints/${tenant}/${product}/${environment}/${segment}
-chmod -R ugo+rwx /srv/jekyll/_data/blueprints/${tenant}/${product}/${environment}/${segment}/
-
 cp "${blueprint}" "/srv/jekyll/_data/blueprints/${tenant}/${product}/${environment}/${segment}/blueprint.json"
 cp "${blueprint}" "/srv/jekyll/blueprints/${tenant}/${product}/${environment}/${segment}/blueprint.json" 
 rm "${blueprint}"
@@ -48,3 +45,4 @@ jekyll build --verbose
 
 # Copy site to outdir
 cp -r /srv/jekyll/_site/. /outdir/
+chmod -R ugo+rwx /outdir
