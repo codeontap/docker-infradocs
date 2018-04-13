@@ -45,4 +45,3 @@ jekyll build --verbose
 
 # Copy site to outdir
 cp -r /srv/jekyll/_site/. /outdir/
-chmod -R ugo+rwx /outdir
