@@ -1,9 +1,0 @@
-_site
-.sass-cache
-.jekyll-metadata
-.idea
-_data/blueprints/*
-!_data/blueprints/README.md
-_data/blueprint_nav*
-blueprints/*
-!blueprints/index-example.html

@@ -8,3 +8,4 @@ the folder structure should follow the following format
         - environment name
             - solution name
                 - segment name
+

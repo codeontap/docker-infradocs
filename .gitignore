@@ -1,0 +1,11 @@
+src/_site
+src/.sass-cache
+src/.jekyll-metadata
+src/.idea
+src/_data/blueprints/*
+!src/_data/blueprints/README.md
+!src/_data/blueprints/msw_example/
+!src/_data/blueprint_nav_exmaple.json
+src/_dat/blueprint_nav*
+src/blueprints/*
+!src/blueprints/index-example.html

@@ -1,0 +1,26 @@
+{
+    "Blueprints": [
+      {
+        "Tenants": [
+          {
+            "Id": "blueprint.json",
+            "Products": [
+              {
+                "Id": "",
+                "Environments": [
+                  {
+                    "Id": "",
+                    "Segments": [
+                      {
+                        "Id": ""
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
