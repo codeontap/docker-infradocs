@@ -4,6 +4,10 @@ The intention of the infradocs container is to take a collection of blueprint js
 
 ## Usage
 
+### Infradocs Build Process 
+
+To test the full infradocs process 
+
 1. Clone this repo down
 3. cd into the repo
 2. Run the docker build
@@ -25,3 +29,15 @@ infradocs
 docker run --name static-nginx -d -p 80:80 -v <Working Directory>/outdir:/usr/share/nginx/html:ro nginx
 ```
 6. To update the site update the contents of the src directory re run the build and rerun the docker run to generate the site.
+
+### Jekyll Only Site
+If you just want to work on the Jekyll site with some test data 
+
+1. Clone down the repo 
+2. From in the repo run the following  
+```sh 
+mv src/_data/msw_example src/_data/msw
+mv src/_data/blueprint_nav_example.json src/_data/blueprint_nav.json
+```
+3. This will enable the test data 
+4. Run Jekyll serve from the src directory to get going
