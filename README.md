@@ -11,3 +11,5 @@ Generate Blueprint files and place them within a central folder. All files shoul
 ```
 
 Once you have the folder created then mount this volume to /indir on the codeontap/infradocs container. Using this blueprint structure the site will be built and available for hosting in the /outdir of the container
+
+While the blueprint file generates the HTML pages used on the site we also save the raw blueprint file that generates the site so that more information can be found or you can use the blueprint for other reasons. When you are on a deployment diagram page change the index.html in your path to blueprint.json to get the blueprint file.
