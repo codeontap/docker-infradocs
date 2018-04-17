@@ -3,16 +3,16 @@
       {
         "Tenants": [
           {
-            "Id": "blueprint.json",
+            "Id": "msw",
             "Products": [
               {
-                "Id": "",
+                "Id": "automation",
                 "Environments": [
                   {
-                    "Id": "",
+                    "Id": "alm",
                     "Segments": [
                       {
-                        "Id": ""
+                        "Id": "alm"
                       }
                     ]
                   }

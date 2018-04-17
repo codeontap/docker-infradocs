@@ -9,3 +9,4 @@ src/_data/blueprints/*
 src/_dat/blueprint_nav*
 src/blueprints/*
 !src/blueprints/index-example.html
+!src/blueprints/msw_example/
