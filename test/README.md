@@ -36,8 +36,9 @@ If you just want to work on the Jekyll site with some test data
 1. Clone down the repo 
 2. From in the repo run the following  
 ```sh 
-mv src/_data/msw_example src/_data/msw
+mv src/_data/blueprints/msw_example src/_data/blueprints/msw
 mv src/_data/blueprint_nav_example.json src/_data/blueprint_nav.json
+mv src/blueprints/msw_example src/blueprints/msw
 ```
 3. This will enable the test data 
 4. Run Jekyll serve from the src directory to get going
