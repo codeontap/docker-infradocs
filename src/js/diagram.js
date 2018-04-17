@@ -7,9 +7,9 @@ function openPropertyTab(evt, occurrenceId, propertySet) {
     }
 
     var i;
-    var x = document.getElementsByClassName("properties-set");
-    for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none"; 
+    var propertySets = document.getElementsByClassName("properties-set");
+    for (i = 0; i < propertySets.length; i++) {
+        propertySets[i].className = propertySets[i].className.replace(" w3-show", " w3-hide");
     }
 
     propertiesSetButtons = document.getElementsByClassName("properties-set-button");
@@ -18,13 +18,16 @@ function openPropertyTab(evt, occurrenceId, propertySet) {
             propertiesSetButtons[i].className = propertiesSetButtons[i].className.replace(" w3-blue", "");
         }
     }
-    
-    document.getElementById("prop-"+propertySet+"-"+occurrenceId).style.display = "block";
+
+    var propertySet = document.getElementById("prop-"+propertySet+"-"+occurrenceId)
+    if (propertySet.className.indexOf("w3-show") == -1 ) {
+        propertySet.className += " w3-show"
+    }
     
     if (evt.currentTarget.className.indexOf("occurrenceSelector") == -1) { 
         evt.currentTarget.className += " w3-blue";
     } else {
-        document.getElementById("prop-but-core-"+occurrenceId).className += " w3-blue";
+        document.getElementById("prop-but-resource-"+occurrenceId).className += " w3-blue";
     }
 };
 
@@ -48,7 +51,7 @@ function openItemPropertyTab(evt, itemId) {
 
     var x = document.getElementById("prop-"+itemId);
     if (x.className.indexOf("w3-show") == -1) {
-        openPropertyTab( evt, itemId, "core");
+        openPropertyTab( evt, itemId, "resource");
         x.className += " w3-show";
         evt.currentTarget.className += " w3-blue";
 

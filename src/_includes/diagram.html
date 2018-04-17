@@ -3,19 +3,19 @@
     <div class="w3-border-bottom w3-margin ">
         <div class="w3-row w3-container">
             <div class="w3-col w3-padding-small w3-center" style="width:20%" >
-                <span class="w3-medium">Tenant: </span><span class="w3-tag w3-round">{{ tenant.Configuration.Name }}</span>
+                <span class="w3-medium">Tenant: </span><span class="w3-tag w3-round">{{ tenant.Configuration.Id }}</span>
             </div>
             {%- for product in tenant.Products %}
             <div class="w3-col w3-padding-small w3-center" style="width:20%" >
-                <span class="w3-medium">Product: </span><span class="w3-tag w3-round">{{ product.Configuration.Name }}</span>
+                <span class="w3-medium">Product: </span><span class="w3-tag w3-round">{{ product.Configuration.Id }}</span>
             </div>
             {%- for environment in product.Environments %}
             <div class="w3-col w3-padding-small w3-center" style="width:20%">
-                <span class="w3-medium">Environment: </span><span class="w3-tag w3-round">{{ environment.Configuration.Name }}</span>
+                <span class="w3-medium">Environment: </span><span class="w3-tag w3-round">{{ environment.Configuration.Id }}</span>
             </div>
             {%- for segment in environment.Segments %}
             <div class="w3-col w3-padding-small w3-center" style="width:20%">
-                <span class="w3-medium">Segment: </span><span class="w3-tag w3-round">{{ segment.Configuration.Name }}</span>
+                <span class="w3-medium">Segment: </span><span class="w3-tag w3-round">{{ segment.Configuration.Id }}</span>
             </div>
         </div>
     </div>

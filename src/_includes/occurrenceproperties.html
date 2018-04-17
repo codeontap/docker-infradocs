@@ -3,19 +3,20 @@
         <span class="w3-large w3-margin">Properties </span><span clas="w3-small">{{include.item.Core.Name}}</span>
     </div>
     <div class="w3-bar w3-light-grey">
-        <button class="properties-set-button w3-bar-item w3-button " onclick="openPropertyTab(event, '{{include.id}}', 'core' ); " id="prop-but-core-{{include.id}}">Core</button>
-        <button class="properties-set-button w3-bar-item w3-button " onclick="openPropertyTab(event, '{{include.id}}', 'config' ); " id="prop-but-config-{{include.id}}">Configuration</button>
+        <button class="properties-set-button w3-bar-item w3-button " onclick="openPropertyTab(event, '{{include.id}}', 'core' ); "      id="prop-but-core-{{include.id}}">Core</button>
+        <button class="properties-set-button w3-bar-item w3-button " onclick="openPropertyTab(event, '{{include.id}}', 'config' ); "    id="prop-but-config-{{include.id}}">Configuration</button>
         <button class="properties-set-button w3-bar-item w3-button " onclick="openPropertyTab(event, '{{include.id}}', 'resource' ); "  id="prop-but-resource-{{include.id}}">Resources</button>
         <button class="properties-set-button w3-bar-item w3-button " onclick="openPropertyTab(event, '{{include.id}}', 'attribute' ); " id="prop-but-attribute-{{include.id}}">Attributes</button>
     </div>
-    <div class="properties-set w3-container" id="prop-core-{{include.id}}" >
-        <ul class="w3-ul w3-small w3-show">
+
+    <div class="properties-set w3-container w3-hide" id="prop-core-{{include.id}}" >
+        <ul class="w3-ul w3-small">
             <li><div class="w3-medium property-key">Name</div> {{include.item.Core.Name}}</li>
             <li><div class="w3-medium property-key">Id</div> {{include.item.Core.Id}}</li>
             <li><div class="w3-medium property-key">Type</div> {{include.item.Core.Type}}</li>
         </ul> 
     </div>
-    <div class="properties-set w3-cell-row" id="prop-config-{{include.id}}" style="display:none">           
+    <div class="properties-set w3-cell-row w3-hide" id="prop-config-{{include.id}}" >           
             {%- for property in include.item.Configuration  %}
                 <div class=" w3-cell w3-mobile w3-quarter" >
                     <ul class="w3-ul w3-small">
@@ -62,12 +63,12 @@
         </div>
         {%- endfor %} 
     </div>
-    <div class="properties-set w3-container w3-row w3-mobile" id="prop-resource-{{include.id}}" style="display:none">
+    <div class="properties-set w3-container w3-row w3-mobile w3-hide" id="prop-resource-{{include.id}}">
         {%- for resource in include.item.State.Resources sort:"[1].Type" %}
         {%- if {{resource[1].first.[1].first}} == nill %}
             <div class="w3-card w3-padding-small w3-button w3-margin w3-col s2 w3-center" onclick="showResourceTab(event, '{{resource[1].Id}}'); " >
-                <div><img src="{{ "/images/resources/aws/" | relative_url}}{{resource[1].Type}}.svg" onerror="this.style.display='none'"></div>
-                <div class="w3-center w3-medium"> {{resource[1].Type}}</div>
+                <div><img height=50px width=auto src="{{ "/images/resources/aws/" | relative_url}}{{resource[1].Type}}.svg"></div>
+                <div class="w3-center w3-small"> {{resource[1].Type}}</div>
                 <div class="resource-properties w3-hide" id="resource-properties-{{resource[1].Id}}">
                     <ul class="w3-ul w3-small">
                     {%- for property in resource[1] %}
@@ -81,24 +82,24 @@
         {%- else %}
             {%- for subresource in resource[1] %}
                 <div class="w3-card w3-button w3-padding-small w3-margin w3-col s2 w3-center" onclick="showResourceTab(event, '{{subresource[1].Id}}'); " >
-                        <div><img src="{{ "/images/resources/aws/" | relative_url}}{{subresource[1].Type}}.svg"></div>
-                        <div class="w3-center"> {{subresource[1].Type}}</div>
-                        <div></div>
-                        <div class="resource-properties w3-border-top w3-hide" id="resource-properties-{{subresource[1].Id}}">
-                            <ul class="w3-ul w3-small">
-                            {%- for property in subresource[1] %}
-                                {%- unless {{property[0]}} == "Type" %}
-                                    <li><div class="property-key">{{property[0]}}</div>{{property[1]}}</li>
-                                {%- endunless %}
-                            {%- endfor %}
-                            </ul>
-                        </div>
+                    <div><img height=50px width=auto src="{{ "/images/resources/aws/" | relative_url}}{{subresource[1].Type}}.svg"></div>
+                    <div class="w3-center w3-small"> {{subresource[1].Type}}</div>
+                    <div></div>
+                    <div class="resource-properties w3-border-top w3-hide" id="resource-properties-{{subresource[1].Id}}">
+                        <ul class="w3-ul w3-small">
+                        {%- for property in subresource[1] %}
+                            {%- unless {{property[0]}} == "Type" %}
+                                <li><div class="property-key">{{property[0]}}</div>{{property[1]}}</li>
+                            {%- endunless %}
+                        {%- endfor %}
+                        </ul>
                     </div>
+                </div>
             {%- endfor %}
         {%- endif %}
         {%- endfor %}
     </div>
-    <div class="properties-set w3-container" id="prop-attribute-{{include.id}}" style="display:none">
+    <div class="properties-set w3-container w3-hide" id="prop-attribute-{{include.id}}">
         <ul class="w3-ul w3-small">
             {%- for property in include.item.State.Attributes %}
             <li><div class="w3-medium property-key">{{property[0]}}</div> {{property[1]}}</li>
