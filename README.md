@@ -4,15 +4,10 @@ InfraDocs is a Jekyll based site which provides an outline of infrastructure com
 
 ## Usage
 
-Generate Blueprint files and place them within a central folder. All files should be called blueprint.json and each deployment should live in a folder structure that represents its deployment.
+Generate Blueprint files and place them within a central folder. All files should be named based on the deployment that generated them following the following structure
 
-````text
-|- root
-|   - <TenantId>
-|       - <ProductId>
-|           - <EnvironmentId>
-|               - <SolutionId>
-|                   - <SegmentId>
-````
+```
+<Tenant>-<Product>-<Environment>-<Segment>-blueprint.json
+```
 
 Once you have the folder created then mount this volume to /indir on the codeontap/infradocs container. Using this blueprint structure the site will be built and available for hosting in the /outdir of the container
