@@ -7,6 +7,8 @@ RUN apk upgrade
 RUN apk add bash
 RUN apk add jq
 
+ENV OUTPUT=site
+
 RUN mkdir /indir
 RUN mkdir /outdir
 

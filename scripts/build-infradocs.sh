@@ -39,9 +39,13 @@ echo "Generating Navigation..."
 # Create a navigation file from the blueprints 
 jq -s -r '.[0].Blueprints=([.[]]|flatten)| .[0] | del(.Tenants) ' /srv/jekyll/_data/blueprint_nav-*.json > /srv/jekyll/_data/blueprint_nav.json
 
-echo "Building Jekyll Site..."
-# Run the build
-jekyll build --verbose
-
-# Copy site to outdir
-cp -r /srv/jekyll/_site/. /outdir/
+# Allows for a debug jekyll export of the site 
+if [ "${OUTPUT}" == "jekyll"]; then 
+    cp -r /srv/jekyll/. /outdir/
+else 
+    echo "Building Jekyll Site..."
+    # Run the build
+    jekyll build --verbose
+    # Copy site to outdir
+    cp -r /srv/jekyll/_site/. /outdir/
+fi
