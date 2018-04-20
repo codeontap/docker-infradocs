@@ -40,7 +40,7 @@ echo "Generating Navigation..."
 jq -s -r '.[0].Blueprints=([.[]]|flatten)| .[0] | del(.Tenants) ' /srv/jekyll/_data/blueprint_nav-*.json > /srv/jekyll/_data/blueprint_nav.json
 
 # Allows for a debug jekyll export of the site 
-if [ "${OUTPUT}" == "jekyll"]; then 
+if [[ "${OUTPUT}" == "jekyll" ]]; then 
     cp -r /srv/jekyll/. /outdir/
 else 
     echo "Building Jekyll Site..."
