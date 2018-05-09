@@ -16,13 +16,13 @@ While the blueprint file generates the HTML pages used on the site we also save 
 
 ## Local Hosting
 
-Jekyll also has a built in server for local development or quickly hosting the site. To use this for infradocs you can run the following command 
+Jekyll also has a built in server for local development or quickly hosting the site. To use this for infradocs you can run the following command
 
 ```sh 
 docker run -it --volume <Your Blueprint Directory>:/indir --env OUTPUT=serve -p 4000:4000 codeontap/infradocs:latest
 ```
 
-Your blueprint directory is the location of your blueprint files. For most codeontap deployments this will be the blueprints/content/ directory in your automation-registry repository.
+Your blueprint directory is the location of your blueprint files. For most codeontap deployments this will be the `blueprints/content/` directory in your `automation-registry` repository.
 
 This will launch as an interactive docker container, remove the -it flag to run the container as a service. 
 
