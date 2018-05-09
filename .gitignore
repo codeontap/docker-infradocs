@@ -4,9 +4,9 @@ src/.jekyll-metadata
 src/.idea
 src/_data/blueprints/*
 !src/_data/blueprints/README.md
-!src/_data/blueprints/msw_example/
-!src/_data/blueprint_nav_exmaple.json
+!src/_data/blueprints/.msw_example/
+!src/_data/.blueprint_nav_exmaple.json
 src/_data/blueprint_nav.json
 src/blueprints/*
 !src/blueprints/index-example.html
-!src/blueprints/msw_example/
+!src/blueprints/.msw_example

@@ -3,7 +3,7 @@ cp -r /indir/ /srv/jekyll/_data/blueprints/
 
 echo "Generating Blueprint Structure..."
 # Find all of the blueprint files listed 
-declare -a BLUEPRINTS=$(find /srv/jekyll/_data/blueprints -type f -name "*blueprint.json")
+declare -a BLUEPRINTS=$(find /srv/jekyll/_data/blueprints -not -path '*/\.*' -type f -name "*blueprint.json")
 
 # Generate an index.html file for each blueprint 
 for blueprint in ${BLUEPRINTS}; do 
@@ -42,7 +42,11 @@ jq -s -r '.[0].Blueprints=([.[]]|flatten)| .[0] | del(.Tenants) ' /srv/jekyll/_d
 # Allows for a debug jekyll export of the site 
 if [[ "${OUTPUT}" == "jekyll" ]]; then 
     cp -r /srv/jekyll/. /outdir/
-else 
+
+elif [ "${OUTPUT}" == "serve" ]; then
+    jekyll serve
+    
+else
     echo "Building Jekyll Site..."
     # Run the build
     jekyll build --verbose
