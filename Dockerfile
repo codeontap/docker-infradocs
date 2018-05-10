@@ -1,4 +1,4 @@
-FROM jekyll/builder:latest
+FROM jekyll/jekyll:stable
 
 LABEL MAINTAINER="codeontap"
 
