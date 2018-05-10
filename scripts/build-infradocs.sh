@@ -44,7 +44,8 @@ if [[ "${OUTPUT}" == "jekyll" ]]; then
     cp -r /srv/jekyll/. /outdir/
 
 elif [ "${OUTPUT}" == "serve" ]; then
-    jekyll serve --watch
+
+    jekyll serve --watch --quiet
 
 else
     echo "Building Jekyll Site..."
