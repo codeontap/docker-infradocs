@@ -3,6 +3,7 @@
     <div class="w3-container">
     <h4><a class="w3-bar w3-center w3-button" href="{{ site.url }}">Home</a></h4>
     </div>
+    {% comment %}
     <div class="w3-container">
         <h4 class="w3-bar w3-padding w3-center w3-border-top">Deployment Finder</h4>
         <div class="w3-cell-row">
@@ -18,9 +19,42 @@
             <div id="level-text-segment" class="w3-small w3-cell w3-right-align w3-hide"></div>
         </div>
     </div>
+    {% endcomment %}
     <div class="w3-container w3-border-top w3-margin">
         <div id="level-current" class="w3-medium w3-border-bottom w3-border-blue w3-padding-small">Products</div>
         {%- assign model = site.data.blueprint_nav.Blueprints -%}
+        <ul class="collapsibleList treeView" id="tree">
+        {%- for blueprint in model %}
+            {%- for tenant in blueprint.Tenants %}
+                {%- assign products = tenant.Products %}
+                {%- for product in products %}
+                    <li>
+                        {{product.Id}}
+                        <ul>
+                            {%- for environment in product.Environments %}
+                                <li>
+                                    {{environment.Id}}
+                                    <ul>
+                                    {%- for segment in environment.Segments %}
+                                        <li><a href="/blueprints/{{tenant.Id}}/{{product.Id}}/{{environment.Id}}/{{segment.Id}}/index.html" title="segment.Id">{{segment.Id}}</a></li>
+                                    {%- endfor %}
+                                    </ul>
+                                </li>
+                            {%- endfor %}
+                        </ul>
+                    </li>
+                {%- endfor %}
+            {%- endfor %}
+        {%- endfor %}
+        </ul>
+
+        <script src="/js/CollapsibleLists.js"></script>
+        <script>
+            // make the list with the ID 'newList' collapsible
+            CollapsibleLists.applyTo(document.getElementById('tree'));
+        </script>
+
+        {% comment %}
         {%- for blueprint in model %}
             {%- for tenant in blueprint.Tenants %}
                 {%- for product in tenant.Products %}
@@ -40,5 +74,6 @@
                 {%- endfor %}
             {%- endfor %}
         {%- endfor %}
+        {% endcomment %}
     </div>
 </div>
