@@ -5,3 +5,55 @@
 .sub-property-key { 
     font-weight: 600;
 }
+
+.resource-items-list{
+    box-shadow: none;
+    border: 1px solid #ddd;
+    border-top: 0;
+}
+
+.resource-item{
+    cursor: pointer;
+    overflow: hidden;
+
+    &:hover{
+        background: #ddd;
+
+        .resource-properties.w3-hide{
+            display: block !important;
+        }
+    }
+
+    .resource-image{
+        float: left;
+        max-width: 85px;
+        max-height: 85px;
+    }
+
+    .resource-item-info{
+        margin: 25px 0 0 100px;
+
+        table{
+            width: 100%;
+
+            .property-key{
+                width: 10%;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+.resource-properties-set{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.resource-properties{
+    padding-top: 20px;
+    width: 100%;
+}
+
+.w3-table + .w3-table{
+    margin-top: 16px;
+}

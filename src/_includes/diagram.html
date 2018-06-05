@@ -47,7 +47,7 @@
     <div class="w3-border w3-margin">
         <header class="w3-container w3-green w3-large">Tier: {{ tier.Configuration.Name }}</header>
         <div class="w3-container w3-row-padding">
-        <h5 class="w3-left-align">Components</h5> 
+        <h5 class="w3-left-align">Components</h5>
             {%- for component in tier.Components %}
             {% capture componentId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}{% endcapture %}
                 <div id="{{componentId}}" class="component-card w3-card w3-margin w3-border w3-col s2 w3-button" onclick="showOccurrenceTable(event, '{{componentId}}');" >
@@ -55,9 +55,9 @@
                         <h4>{{component.Id}}</h4>
                         <div class="w3-small w3-text-grey">{{component.Type}}</div>
                     </div>
-                    <div id="occurrencetable-{{componentId}}" class="w3-container w3-cell w3-hide w3-padding w3-margin">
+                    <div id="occurrencetable-{{componentId}}" class="w3-container w3-cell w3-hide w3-padding">
                         <button class="table-close w3-button w3-hover-dark-red w3-red w3-tiny" onclick="showOccurrenceTable(event, '{{componentId}}');">Close &times</button>
-                        <table class="w3-table w3-margin w3-hoverable">
+                        <table class="w3-table w3-hoverable">
                             <thead>
                                 <tr class="w3-light-grey">
                                     <th>Occurrence</th>
@@ -73,7 +73,7 @@
                             {%- for occurrence in component.Occurrences  %}
                                 {%- capture occurrenceId %}{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{segment.Id}}-{{tier.Id}}-{{component.Id}}-{{occurrence.Core.Id}}{%- endcapture %}
                                 <tr class="occurrenceSelector" onclick="event.stopPropagation(); openItemPropertyTab(event, '{{occurrenceId}}');">
-                                    <td colspan="2" ><span class="w3-small">{{occurrence.Core.Name}}</span></td>
+                                    <td colspan="2"><span class="w3-small">{{occurrence.Core.Name}}</span></td>
                                     <td><span class="w3-small">{{occurrence.Core.Type}}</span></td>
                                 </tr>
                                 
@@ -82,10 +82,10 @@
                                     <tr class="occurrenceSelector" onclick="event.stopPropagation(); openItemPropertyTab(event, '{{subOccurrenceId}}');">
                                         <td></td>
                                         <td> 
-                                        <span class="w3-small"> {{suboccurrence.Core.Name}} </span>
+                                        <span class="w3-small">{{suboccurrence.Core.Name}} </span>
                                         </td>
                                         <td>
-                                            <span class="w3-small w3-padding">{{suboccurrence.Core.Type}}</span>
+                                            <span class="w3-small">{{suboccurrence.Core.Type}}</span>
                                         </td>
                                     </tr>
                                 {%- endfor %}                                                                        
@@ -104,7 +104,7 @@
                         {%- endfor %}
                     </div>
                 </div>
-            {%- endfor %} 
+            {%- endfor %}
         </div>
     </div>
     {%- endfor %}
