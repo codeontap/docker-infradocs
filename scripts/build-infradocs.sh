@@ -26,6 +26,10 @@ cat << EOF > /srv/jekyll/blueprints/${tenant}/${product}/${environment}/${segmen
 ---
 title: Deployment
 layout: diagram
+tenant: ${tenant}
+product: ${product}
+environment: ${environment}
+segment: ${segment}
 ---
 {% include diagram.html model=site.data.blueprints.${tenant}.${product}.${environment}.${segment}.blueprint %}
 EOF
@@ -44,10 +48,14 @@ if [[ "${OUTPUT}" == "jekyll" ]]; then
     cp -r /srv/jekyll/. /outdir/
 
 elif [ "${OUTPUT}" == "serve" ]; then
-
+    [[ -d /srv/jekyll/_data/blueprints/.msw ]] && rm -rf /srv/jekyll/_data/blueprints/.msw
+    [[ -d /srv/jekyll/blueprints/.msw ]] && rm -rf /srv/jekyll/blueprints/.msw
     jekyll serve --watch --quiet
 
 else
+    [[ -d /srv/jekyll/_data/blueprints/.msw ]] && rm -rf /srv/jekyll/_data/blueprints/.msw
+    [[ -d /srv/jekyll/blueprints/.msw ]] && rm -rf /srv/jekyll/blueprints/.msw
+    
     echo "Building Jekyll Site..."
     # Run the build
     jekyll build --verbose
