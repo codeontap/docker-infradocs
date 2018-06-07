@@ -23,7 +23,6 @@ VOLUME /indir
 
 COPY ./src /srv/jekyll
 COPY ./scripts/build-infradocs.sh /tmp/build-infradocs.sh
-COPY ./scripts/nav_template.json /tmp/nav_template.json
 
 EXPOSE 4000
 
