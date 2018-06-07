@@ -34,14 +34,7 @@ segment: ${segment}
 {% include diagram.html model=site.data.blueprints.${tenant}.${product}.${environment}.${segment}.blueprint %}
 EOF
 
-jq -r --arg tenant "${tenant}" --arg product "${product}" --arg environment "${environment}"  --arg segment "${segment}" \
-'.Tenants[0].Id = ($tenant) | .Tenants[0].Products[0].Id = ($product) | .Tenants[0].Products[0].Environments[0].Id = ($environment) | .Tenants[0].Products[0].Environments[0].Segments[0].Id = ($segment)' \
-< /tmp/nav_template.json > /srv/jekyll/_data/blueprint_nav-${tenant}-${product}-${environment}-${segment}.json
 done
-
-echo "Generating Navigation..."
-# Create a navigation file from the blueprints 
-jq -s -r '.[0].Blueprints=([.[]]|flatten)| .[0] | del(.Tenants) ' /srv/jekyll/_data/blueprint_nav-*.json > /srv/jekyll/_data/blueprint_nav.json
 
 # Allows for a debug jekyll export of the site 
 if [[ "${OUTPUT}" == "jekyll" ]]; then 
