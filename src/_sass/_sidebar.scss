@@ -55,3 +55,18 @@
     background-image:url('../images/list-item-last-open.png');
 }
 
+.treeView li.current{
+    font-weight: bold;
+
+    a{
+        text-decoration: none;
+    }
+}
+
+.treeView li.segment-menu-item{
+    list-style-image: none;
+
+    a{
+        padding-left: 15px;
+    }
+}

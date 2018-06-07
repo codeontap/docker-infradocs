@@ -24,6 +24,10 @@ kramdown:
 
 permalink: /:basename:output_ext
 
+collections:
+  blueprints:
+    output: true
+
 defaults:
   -
     scope:

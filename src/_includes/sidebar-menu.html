@@ -1,79 +1,30 @@
 <div class="w3-sidebar w3-rightbar w3-border-blue " style="width:20%">
-    {%- assign current = page.url | downcase | split: '/' -%}
     <div class="w3-container">
-    <h4><a class="w3-bar w3-center w3-button" href="{{ site.url }}">Home</a></h4>
+        <h4><a class="w3-bar w3-center w3-button" href="{{ site.url }}">Home</a></h4>
     </div>
-    {% comment %}
-    <div class="w3-container">
-        <h4 class="w3-bar w3-padding w3-center w3-border-top">Deployment Finder</h4>
-        <div class="w3-cell-row">
-            <div id="level-product" class="sidebar-level-title w3-small w3-cell w3-text-dark-grey w3-left-align">Product</div>
-            <div id="level-text-product" class=" w3-small w3-cell w3-right-align"></div>
-        </div>
-        <div class="w3-cell-row">
-            <div id="level-environment" class="sidebar-level-title w3-small w3-cell w3-text-dark-grey w3-left-align">Environment</div>
-            <div id="level-text-environment" class="w3-small w3-cell w3-right-align"></div>
-        </div>
-        <div class="w3-cell-row w3-hide">
-            <div id="level-segment" class="sidebar-level-title w3-small w3-cell w3-text-dark-grey w3-left-align w3-hide">Segment</div>
-            <div id="level-text-segment" class="w3-small w3-cell w3-right-align w3-hide"></div>
-        </div>
-    </div>
-    {% endcomment %}
     <div class="w3-container w3-border-top w3-margin">
         <div id="level-current" class="w3-medium w3-border-bottom w3-border-blue w3-padding-small">Products</div>
-        {%- assign model = site.data.blueprint_nav.Blueprints -%}
+        {% assign productItems = site.blueprints | group_by: 'product' %}
         <ul class="collapsibleList treeView" id="tree">
-        {%- for blueprint in model %}
-            {%- for tenant in blueprint.Tenants %}
-                {%- assign products = tenant.Products %}
-                {%- for product in products %}
-                    <li>
-                        {{product.Id}}
+            {% for productItem in productItems %}
+            <li {% if page.product == productItem.name %} class="collapsible-list-open"{% endif %}>
+                {{productItem.name}}
+                <ul>
+                    {% assign environmentItems = productItem.items | group_by: 'environment' %}
+                    {% for environmentItem in environmentItems %}
+                    <li {% if page.environment == environmentItem.name %} class="collapsible-list-open"{% endif %}>
+                        {{ environmentItem.name }}
+                        {% assign segmentItems = environmentItem.items %}
                         <ul>
-                            {%- for environment in product.Environments %}
-                                <li>
-                                    {{environment.Id}}
-                                    <ul>
-                                    {%- for segment in environment.Segments %}
-                                        <li><a href="/blueprints/{{tenant.Id}}/{{product.Id}}/{{environment.Id}}/{{segment.Id}}/index.html" title="segment.Id">{{segment.Id}}</a></li>
-                                    {%- endfor %}
-                                    </ul>
-                                </li>
-                            {%- endfor %}
+                            {% for segmentItem in segmentItems %}
+                            <li class="segment-menu-item{% if page.product == productItem.name and page.environment == environmentItem.name and page.segment == segmentItem.segment %} current{% endif %}"><a href="{{segmentItem.url}}">{{segmentItem.segment}}</a></li>
+                            {% endfor %}
                         </ul>
                     </li>
-                {%- endfor %}
-            {%- endfor %}
-        {%- endfor %}
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
         </ul>
-
-        <script src="/js/CollapsibleLists.js"></script>
-        <script>
-            // make the list with the ID 'newList' collapsible
-            CollapsibleLists.applyTo(document.getElementById('tree'));
-        </script>
-
-        {% comment %}
-        {%- for blueprint in model %}
-            {%- for tenant in blueprint.Tenants %}
-                {%- for product in tenant.Products %}
-                    <div id="sidebar-{{tenant.Id}}-{{product.Id}}" class="deployment-nav deployment-product w3-border-bottom" onclick="openSideBarDeployments(event, 'product', 'environment');">
-                    <a class="w3-bar w3-button">{{product.Id}}</a>
-                    </div>
-                    {%- for environment in product.Environments %}
-                        <div id="sidebar-{{tenant.Id}}-{{product.Id}}-{{environment.Id}}" class="deployment-nav deployment-environment w3-border-bottom  w3-hide" onclick="openSideBarDeployments(event, 'environment', 'segment');">
-                            <a class="w3-bar w3-button">{{environment.Id}}</a>
-                        </div>
-                        {%- for segment in environment.Segments %}
-                            <div id="sidebar-{{tenant.Id}}-{{product.Id}}-{{environment.Id}}-{{solution.Id}}-{{segment.Id}}" class="deployment-nav deployment-segment w3-border-bottom w3-hide">
-                            <a class="w3-bar w3-button" href="/blueprints/{{tenant.Id}}/{{product.Id}}/{{environment.Id}}/{{segment.Id}}/index.html">{{segment.Id}}</a>
-                            </div>
-                        {%- endfor %}
-                    {%- endfor %}
-                {%- endfor %}
-            {%- endfor %}
-        {%- endfor %}
-        {% endcomment %}
     </div>
 </div>
