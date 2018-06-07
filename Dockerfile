@@ -15,7 +15,7 @@ RUN mkdir /outdir
 RUN chmod ugo+rwx /indir
 RUN chmod ugo+rwx /outdir
 
-RUN mkdir /srv/jekyll/blueprints
+RUN mkdir /srv/jekyll/_blueprints
 RUN mkdir /srv/jekyll/_site 
 
 VOLUME /outdir

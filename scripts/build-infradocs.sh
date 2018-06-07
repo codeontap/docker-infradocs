@@ -15,14 +15,14 @@ segment=$(basename "${blueprint}" | awk -F"-" '{print $4}')
 
 echo "Deployment Found - ${tenant}-${product}-${environment}-${segment}"
 
-mkdir -p /srv/jekyll/blueprints/${tenant}/${product}/${environment}/${segment}
+mkdir -p /srv/jekyll/_blueprints/${tenant}/${product}/${environment}/${segment}
 mkdir -p /srv/jekyll/_data/blueprints/${tenant}/${product}/${environment}/${segment}/
 
 cp "${blueprint}" "/srv/jekyll/_data/blueprints/${tenant}/${product}/${environment}/${segment}/blueprint.json"
-cp "${blueprint}" "/srv/jekyll/blueprints/${tenant}/${product}/${environment}/${segment}/blueprint.json" 
+cp "${blueprint}" "/srv/jekyll/_blueprints/${tenant}/${product}/${environment}/${segment}/blueprint.json" 
 rm "${blueprint}"
 
-cat << EOF > /srv/jekyll/blueprints/${tenant}/${product}/${environment}/${segment}/index.html
+cat << EOF > /srv/jekyll/_blueprints/${tenant}/${product}/${environment}/${segment}/index.html
 ---
 title: Deployment
 layout: diagram
@@ -49,12 +49,12 @@ if [[ "${OUTPUT}" == "jekyll" ]]; then
 
 elif [ "${OUTPUT}" == "serve" ]; then
     [[ -d /srv/jekyll/_data/blueprints/.msw ]] && rm -rf /srv/jekyll/_data/blueprints/.msw
-    [[ -d /srv/jekyll/blueprints/.msw ]] && rm -rf /srv/jekyll/blueprints/.msw
+    [[ -d /srv/jekyll/_blueprints/.msw ]] && rm -rf /srv/jekyll/_blueprints/.msw
     jekyll serve --watch --quiet
 
 else
     [[ -d /srv/jekyll/_data/blueprints/.msw ]] && rm -rf /srv/jekyll/_data/blueprints/.msw
-    [[ -d /srv/jekyll/blueprints/.msw ]] && rm -rf /srv/jekyll/blueprints/.msw
+    [[ -d /srv/jekyll/_blueprints/.msw ]] && rm -rf /srv/jekyll/_blueprints/.msw
     
     echo "Building Jekyll Site..."
     # Run the build

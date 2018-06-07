@@ -4,7 +4,7 @@ The intention of the infradocs container is to take a collection of blueprint js
 
 ## Usage
 
-### Infradocs Build Process 
+### Infradocs Build Process
 
 To test the full infradocs process
 
@@ -39,7 +39,7 @@ If you just want to work on the Jekyll site with some test data
 ```sh 
     cp -R src/_data/blueprints/.msw src/_data/blueprints/msw
     cp src/_data/.blueprint_nav.json src/_data/blueprint_nav.json
-    cp -R src/blueprints/.msw src/blueprints/msw
+    cp -R src/_blueprints/.msw src/_blueprints/msw
 ```
 3. This will enable the test data collection
 4. Run Jekyll serve from the src directory to get going
