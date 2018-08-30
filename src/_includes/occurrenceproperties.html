@@ -15,59 +15,78 @@
             <li><div class="w3-medium property-key">Name</div> {{include.item.Core.Name}}</li>
             <li><div class="w3-medium property-key">Id</div> {{include.item.Core.Id}}</li>
             <li><div class="w3-medium property-key">Type</div> {{include.item.Core.Type}}</li>
-        </ul> 
+        </ul>
     </div>
-    <div class="properties-set w3-cell-row w3-hide" id="prop-config-{{include.id}}" >           
-            {%- for property in include.item.Configuration  %}
-                <div class=" w3-cell w3-mobile w3-quarter" >
-                    <ul class="w3-ul w3-small">
-                    <li><div class="w3-medium property-key">{{property[0]}}</div> 
-                    {%- if property[1].first %}
-                        {%- if property[1].first.[1] != nill %}
-                            <ul class="w3-ul w3-small"> 
-                                {%- for sub-property in property[1] %}
-                                    <li><div class="w3-medium ">{{sub-property[0]}}</div>
-                                    {%- if sub-property[1].first %}
-                                        <ul class="w3-ul w3-small">    
-                                        {%- if sub-property[1].first.[1] != nill %}
-                                            {%- for sub-sub-property in sub-property[1] %}
-                                                <li><div class="w3-medium">{{sub-sub-property[0]}}</div>{{sub-sub-property[1]}}</li>
-                                            {%- endfor %}
-                                        {%- else %}
-                                            {%- for value in sub-property[1] %}
-                                                {%- if value[1] != nill %}
-                                                    <li><div class="w3-medium">{{value[0]}}</div>{{value[1]}}^</li>
-                                                {%- else %}
-                                                    <li>{{value}}</li>
-                                                {%- endif %}
-                                            {%- endfor %}
-                                        {%- endif %}
-                                        </ul>
+    <div class="properties-set w3-cell-row w3-hide" id="prop-config-{{include.id}}" >
+        {%- for property in include.item.Configuration  %}
+        <button onclick="collapseBlock('js-config-{{property[0] | slugify}}-{{include.id}}')" class="w3-button w3-block w3-left-align">{{property[0]}}</button>
+        <div id="js-config-{{property[0] | slugify}}-{{include.id}}" class="w3-container w3-hide">
+            {%- if property[1].first %}
+            {%- if property[1].first.[1] != nill %}
+            <table class="w3-table w3-striped w3-bordered">
+                {%- for sub-property in property[1] %}
+                <tr>
+                    <th>{{sub-property[0]}}</th>
+                    <td>
+                    {%- if sub-property[1].first %}
+                    <ul class="w3-ul w3-small" style="margin-top: 0;">
+                        {%- if sub-property[1].first.[1] != nill %}
+                        {%- for sub-sub-property in sub-property[1] %}
+                        <li class="w3-padding-small">
+                            <div class="w3-medium">{{sub-sub-property[0]}}</div>
+                            {%- if sub-sub-property.first != nill %}
+                            <ul class="w3-ul w3-small">
+                            {%- for property in sub-sub-property[1] %}
+                            <li class="w3-padding-small" style="white-space: nowrap;">
+                                {%- if sub-sub-property[1].Sensitive and sub-sub-property[1].Sensitive != "" and property[0] == "Value" %}
+                                    {{property[0]}}: *****
+                                {%- else %}
+                                    {%- if property.first != nill %}
+                                        {{property[0]}}: {{property[1]}}
                                     {%- else %}
-                                        {{sub-property[1]}}
+                                        {{property}}
                                     {%- endif %}
-                                    </li>
-                                {%- endfor %}
-                            </ul>
-                        {%- else %}
-                            <ul class="w3-ul w3-class">
-                            {%- for value in property[1] %}
-                                <li>{{value}}</li>
+                                {%- endif %}
+                            </li>
                             {%- endfor %}
                             </ul>
+                            {%- endif %}
+                        </li>
+                        {%- endfor %}
+                        {%- else %}
+                        {%- for value in sub-property[1] %}
+                        {%- if value[1] != nill %}
+                        <li><div class="w3-medium">{{value[0]}}</div>{{value[1]}}^</li>
+                        {%- else %}
+                        <li>{{value}}</li>
                         {%- endif %}
+                        {%- endfor %}
+                        {%- endif %}
+                    </ul>
                     {%- else %}
-                        <ul class="w3-ul w3-class"><li>{{property[1]}}</li></ul>
+                    {{sub-property[1]}}
                     {%- endif %}
-                </li>
+                    </td>
+                </tr>
+                {%- endfor %}
+            </table>
+            {%- else %}
+            <ul class="w3-ul w3-class">
+                {%- for value in property[1] %}
+                <li>{{value}}</li>
+                {%- endfor %}
             </ul>
+            {%- endif %}
+            {%- else %}
+            <ul class="w3-ul w3-class"><li>{{property[1]}}</li></ul>
+            {%- endif %}
         </div>
-        {%- endfor %} 
+        {%- endfor %}
     </div>
     <div class="properties-set w3-container w3-row w3-mobile w3-hide resource-properties-set" id="prop-resource-{{include.id}}">
         <ul class="w3-ul w3-card-4 resource-items-list">
-        {%- for resource in resources %}
-        {%- if {{resource[1].first.[1].first}} == nill %}
+            {%- for resource in resources %}
+            {%- if {{resource[1].first.[1].first}} == nill %}
             <li class="resource-item" onclick="showResourceTab(event, '{{resource[1].Id}}'); ">
                 <img src="{{ "/images/resources/aws/" | relative_url}}{{resource[1].Type}}.svg" class="resource-image">
                 <div class="resource-item-info">
@@ -76,39 +95,39 @@
                         <table class="w3-table-all">
                             {%- for property in resource[1] %}
                             {%- unless {{property[0]}} == "Type" %}
-                                <tr>
-                                    <td class="property-key">{{property[0]}}</td>
-                                    <td>{{property[1]}}</td>
-                                </tr>
+                            <tr>
+                                <td class="property-key">{{property[0]}}</td>
+                                <td>{{property[1]}}</td>
+                            </tr>
                             {%- endunless %}
                             {%- endfor %}
                         </table>
                     </div>
                 </div>
             </li>
-        {%- else %}
+            {%- else %}
             {%- for subresource in resource[1] %}
-                <li class="resource-item" onclick="showResourceTab(event, '{{subresource[1].Id}}'); " >
-                    <img src="{{ "/images/resources/aws/" | relative_url}}{{subresource[1].Type}}.svg" class="resource-image">
-                    <div class="resource-item-info">
-                        <span class="w3-large">{{subresource[1].Type}}</span>
-                        <div class="resource-properties w3-hide" id="resource-properties-{{subresource[1].Id}}">
-                            <table class="w3-table-all">
-                                {%- for property in subresource[1] %}
-                                {%- unless {{property[0]}} == "Type" %}
-                                <tr>
-                                    <td class="property-key">{{property[0]}}</td>
-                                    <td>{{property[1]}}</td>
-                                </tr>
-                                {%- endunless %}
-                                {%- endfor %}
-                            </table>
-                        </div>
+            <li class="resource-item" onclick="showResourceTab(event, '{{subresource[1].Id}}'); " >
+                <img src="{{ "/images/resources/aws/" | relative_url}}{{subresource[1].Type}}.svg" class="resource-image">
+                <div class="resource-item-info">
+                    <span class="w3-large">{{subresource[1].Type}}</span>
+                    <div class="resource-properties w3-hide" id="resource-properties-{{subresource[1].Id}}">
+                        <table class="w3-table-all">
+                            {%- for property in subresource[1] %}
+                            {%- unless {{property[0]}} == "Type" %}
+                            <tr>
+                                <td class="property-key">{{property[0]}}</td>
+                                <td>{{property[1]}}</td>
+                            </tr>
+                            {%- endunless %}
+                            {%- endfor %}
+                        </table>
                     </div>
-                </li>
-        {%- endfor %}
-        {%- endif %}
-        {%- endfor %}
+                </div>
+            </li>
+            {%- endfor %}
+            {%- endif %}
+            {%- endfor %}
         </ul>
     </div>
     <div class="properties-set w3-container w3-hide" id="prop-attribute-{{include.id}}">
@@ -119,3 +138,14 @@
         </ul>
     </div>
 </div>
+<script>
+    function collapseBlock(id) {
+        var x = document.getElementById(id);
+        console.log(x);
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+</script>
