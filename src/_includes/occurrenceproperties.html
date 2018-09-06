@@ -34,26 +34,32 @@
                             {%- for sub-sub-property in sub-property[1] %}
                                 <li class="w3-padding-small">
                                     <div class="w3-medium">{{sub-sub-property[0]}}</div>
-                                    {%- if sub-sub-property.first != nill %}
-                                    <ul class="w3-ul w3-small">
-                                    {%- for property in sub-sub-property[1] %}
-                                    <li class="w3-padding-small" style="white-space: nowrap;">
-                                        {%- if sub-sub-property[1].Sensitive and sub-sub-property[1].Sensitive != "" and property[0] == "Value" %}
-                                            {{property[0]}}: *****
-                                        {%- else %}
-                                            {%- if property.first != nill %}
-                                                {{property[0]}}: {{property[1]}}
+                                    {%- if sub-sub-property.first%}
+                                        <ul class="w3-ul w3-small">
+                                            {%- if sub-sub-property[1].first %}
+                                                {%- for property in sub-sub-property[1] %}
+                                                    <li class="w3-padding-small" style="white-space: nowrap;">
+                                                        {%- if sub-sub-property[1].Sensitive and sub-sub-property[1].Sensitive != "" and property[0] == "Value" %}
+                                                            {{property[0]}}: *****
+                                                        {%- else %}
+                                                            {%- if property.first != nill %}
+                                                                {{property[0]}}: {{property[1]}}
+                                                            {%- else %}
+                                                                {%- if sub-property[0]== "Sensitive" %}
+                                                                    *****
+                                                                {%- else %}
+                                                                    {{property}}
+                                                                {%- endif %}
+                                                            {%- endif %}
+                                                        {%- endif %}
+                                                    </li>
+                                                {%- endfor %}
                                             {%- else %}
-                                                {%- if sub-property[0]== "Sensitive" %}
-                                                    *****
-                                                {%- else %}
-                                                    {{property}}
-                                                {%- endif %}
+                                                <li class="w3-padding-small">{{sub-sub-property[1]}}</li>
                                             {%- endif %}
-                                        {%- endif %}
-                                    </li>
-                                    {%- endfor %}
-                                    </ul>
+                                        </ul>
+                                    {%- else %}
+                                     {{sub-sub-property}}
                                     {%- endif %}
                                 </li>
                             {%- endfor %}
